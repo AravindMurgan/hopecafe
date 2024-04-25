@@ -9,20 +9,30 @@ public class DatabaseConnection  {
     public Connection dataseBaseLink;
 
 
-    public Connection getConnection() throws ClassNotFoundException, SQLException {
-        String databaseName = "HopeCafeDB";
-        String databaseUser = "your_username";
-        String databasePassword = "your_password";
+    public Connection getConnection() {
+        String databaseName = "hopecafe";
+        String databaseUser = "root";
+        String databasePassword = "12345";
         String url = "jdbc:mysql://127.0.0.1:3306/" + databaseName;
 
         // Load the MySQL JDBC driver
-        Class.forName("com.mysql.cj.jdbc.Driver");
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
 
         // Establish the database connection
-        dataseBaseLink = DriverManager.getConnection(url, databaseUser, databasePassword);
+        try {
+            dataseBaseLink = DriverManager.getConnection(url, databaseUser, databasePassword);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         return dataseBaseLink;
     }
+
+
 
 
 }
