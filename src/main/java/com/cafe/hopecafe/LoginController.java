@@ -1,14 +1,18 @@
 package com.cafe.hopecafe;
 
+import com.cafe.hopecafe.utils.FxmlLoaderUtil;
+import com.cafe.hopecafe.utils.FxmlPaths;
+import com.cafe.hopecafe.utils.RootBorderPaneHolder;
+import com.cafe.hopecafe.utils.UserData;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -62,6 +66,7 @@ public class LoginController implements Initializable {
         } else if (!isValidPassword(password)) {
             loginMessageLabel.setText("Invalid password format.");
         } else {
+
             validateLogin();
         }
 
@@ -84,9 +89,12 @@ public class LoginController implements Initializable {
     public void validateLogin() throws SQLException, ClassNotFoundException {
         DatabaseConnection connectNow= new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
+        String username= usernameTextField.getText();
+        String password= passwordTextField.getText();
 
-        String verifyLogin = "SELECT count(1) FROM user_account WHERE username='"+
-                usernameTextField.getText() + "' AND password='"+passwordTextField .getText()+"'";
+
+        String verifyLogin = "SELECT * FROM user_account WHERE username='"+
+                username + "' AND password='"+password+"'";
 
         try {
             Statement statement= connectDB.createStatement();
@@ -94,13 +102,22 @@ public class LoginController implements Initializable {
             System.out.println(queryResult);
             System.out.println(queryResult);
 
-            while(queryResult.next()){
-                if(queryResult.getInt(1) == 1){
+            if(queryResult.next()){
+                    int userId = queryResult.getInt("account_id");
+                    System.out.println("userID::::::  "+userId);
+                    UserData.getInstance().setUserid(userId);
+                    RootBorderPaneHolder.getInstance().setRootPane(rootPane);
+                    try {
+                        BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.CUSTOMER_HOME_PAGE));
+                        rootPane.getChildren().setAll(fxmlLoader);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        e.getCause();
+                    }
                     //loginMessageLabel.setText("Congrats");
                    // createAccountForm();
-                }else{
-                    loginMessageLabel.setText("Invalid user login, Please try again");
-                }
+            }else{
+                loginMessageLabel.setText("Invalid user login, Please try again");
             }
 
         }catch (Exception e){
@@ -111,16 +128,10 @@ public class LoginController implements Initializable {
     }
 
     public void signUpOnAction(){
-        
+
         try {
-            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource("register.fxml"));
+            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.REGISTER_FXML));
             rootPane.getChildren().setAll(fxmlLoader);
-         //FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register.fxml"));
-////            Stage registerStage = new Stage();
-//            Scene scene = new Scene(fxmlLoader.load(), 800, 427);
-//            primaryStage.setTitle("Hope Cafe");
-//            primaryStage.setScene(scene);
-//            primaryStage.show();
         }catch (Exception e){
                e.printStackTrace();
                e.getCause();
