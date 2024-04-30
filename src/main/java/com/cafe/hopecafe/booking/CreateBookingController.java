@@ -1,13 +1,20 @@
 package com.cafe.hopecafe.booking;
 
+import com.cafe.hopecafe.DatabaseConnection;
+import com.cafe.hopecafe.utils.FxmlPaths;
+import com.cafe.hopecafe.utils.Routing;
+import com.cafe.hopecafe.utils.RootBorderPaneHolder;
+import com.cafe.hopecafe.utils.UserData;
 import javafx.fxml.FXML;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
+import javafx.scene.layout.BorderPane;
 
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 
 public class CreateBookingController {
@@ -66,9 +73,51 @@ public class CreateBookingController {
         }
     }
     public void createBookingForUser(){
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+        String formattedDate = getSelectedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
-        System.out.println("booking created");
+        String time = timeField.getText();
+        String noofguests=noofguestsField.getText();
+        String name = nameField.getText();
+        String email = emailField.getText();
+        String phoneno= phoneField.getText();
+        Integer user_id = UserData.getInstance().getUserid();
 
+        String insertFields = "INSERT INTO bookings (table_number, date, time, no_of_guests,account_id,name,email,phone) VALUES ('";
+        String insertValues = "table_test"+"','"+formattedDate +"','"+time
+                +"','"+noofguests +"','"+user_id +"','"+name+"','"+email+"','"+phoneno +"')";
+        String insertToRegister=insertFields+insertValues;
+
+        try{
+
+            Statement statement= connectDB.createStatement();
+            statement.executeUpdate(insertToRegister);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Booking created successfully");
+            //registerMessageLabel.setText("User Registered Successfully");
+            BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
+            alert.showAndWait()
+                    .filter(response -> response == ButtonType.OK)
+                    .ifPresent(response -> {
+                        try {
+                            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.CUSTOMER_HOME_PAGE));
+                            rootPane.getChildren().setAll(fxmlLoader);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            // Handle the IOException
+                        }
+                    });
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getCause();
+        }
+
+    }
+
+    public void cancelButtonOnAction(){
+        new Routing().navigateToHomePage(FxmlPaths.CUSTOMER_HOME_PAGE);
     }
 
 }
