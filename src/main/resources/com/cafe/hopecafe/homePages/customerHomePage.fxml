@@ -7,41 +7,46 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.cafe.hopecafe.homePages.customerHomePageController">
-    <children>
-        <VBox layoutX="14.0" layoutY="14.0" spacing="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cafe.hopecafe.homePages.customerHomePageController">
+    <center>
+        <VBox layoutX="14.0" layoutY="14.0" prefHeight="479.0" prefWidth="572.0" spacing="10.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
             <children>
                 <Label text="Welcome, [Customer Name]" />
                 <Label text="Your Upcoming Bookings" />
                 <TableView fx:id="bookingsTable" prefHeight="100.0">
                     <columns>
+                        <TableColumn prefWidth="120.0" text="Name" />
                         <TableColumn prefWidth="120.0" text="Date" />
                         <TableColumn prefWidth="120.0" text="Time" />
-                        <TableColumn prefWidth="120.0" text="Guests" />
+                        <TableColumn prefWidth="120.0" text="Number Of Guests" />
+                        <TableColumn prefWidth="120.0" text="Table Number" />
                     </columns>
                 </TableView>
                 <Label text="Menu" />
+
                 <ListView fx:id="menuListView" prefHeight="100.0" />
                 <Label text="Order Food" />
                 <HBox spacing="10.0">
                     <children>
-                        <Button fx:id="placeEatInOrderButton" text="Place Eat-In Order" />
+                        <Button fx:id="placeEatInOrderButton" onAction="#placeEatInOrderOnAction" text="Place Eat-In Order" />
                         <Button fx:id="placeTakeawayOrderButton" text="Place Takeaway Order" />
                         <Button fx:id="requestDeliveryButton" text="Request Delivery" />
                     </children>
                 </HBox>
-                <Label text="Upcoming Events" />
-                <ListView fx:id="upcomingEventsListView" prefHeight="100.0" />
+                <Label prefHeight="22.0" prefWidth="88.0" text="Book a Table">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font></Label>
+            <Button fx:id="createBookingButton" mnemonicParsing="false" onAction="#createBookingButtonOnAction" prefHeight="25.0" prefWidth="132.0" text="Create Booking" />
             </children>
             <padding>
                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
             </padding>
         </VBox>
-    </children>
-</AnchorPane>
+    </center>
+</BorderPane>
