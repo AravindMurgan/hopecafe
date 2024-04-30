@@ -9,8 +9,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cafe.hopecafe.RegisterController">
-    <center>
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+            minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+            xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.cafe.hopecafe.RegisterController"
+>
+
         <AnchorPane prefHeight="471.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <children>
                 <Label layoutX="39.0" layoutY="138.0" text="Username">
@@ -54,5 +58,5 @@
             <Label fx:id="confirmPasswordLabel" layoutX="355.0" layoutY="215.0" prefHeight="17.0" prefWidth="161.0" textFill="#f51313" />
             </children>
         </AnchorPane>
-    </center>
-</BorderPane>
+
+</AnchorPane>
