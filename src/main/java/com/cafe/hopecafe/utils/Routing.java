@@ -95,4 +95,22 @@ public class Routing {
         }
 
     }
+
+
+    public void navigateToLoginPage() {
+        BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
+        try {
+            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource("/com/cafe/hopecafe/login.fxml"));
+            if(rootPane != null) {
+                rootPane.getChildren().setAll(fxmlLoader);
+            } else {
+                Stage stage = new Stage();
+                Scene scene = new Scene(fxmlLoader);
+                stage.setScene(scene);
+                stage.show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
