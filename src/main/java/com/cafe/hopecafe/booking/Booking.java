@@ -1,5 +1,7 @@
 package com.cafe.hopecafe.booking;
 
+import javafx.scene.control.CheckBox;
+
 public class Booking {
     private int bookingId;
     private String tableNumber;
@@ -10,8 +12,14 @@ public class Booking {
     private String name;
     private String email;
     private String phone;
+    private String bookingStatus;
 
-    public Booking(int bookingId, String tableNumber, String date, String time, int noOfGuests, int accountId, String name, String email, String phone) {
+
+
+    private CheckBox checkBox;
+
+    public Booking(int bookingId, String tableNumber, String date, String time, int noOfGuests,
+                   int accountId, String name, String email, String phone,String status,String checkbox) {
         this.bookingId = bookingId;
         this.tableNumber = tableNumber;
         this.date = date;
@@ -21,6 +29,52 @@ public class Booking {
         this.name = name;
         this.email = email;
         this.phone = phone;
+        this.bookingStatus= status;
+
+        this.checkBox = new CheckBox();
+        this.checkBox.setSelected(false);
+        this.checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            // You can perform any action here when checkbox state changes
+            if (newValue) {
+                System.out.println("Checkbox selected for: " + this.getAccountId() + " " + this.getBookingStatus());
+            } else {
+                System.out.println("Checkbox deselected for: " + this.getAccountId()+ " " + this.getBookingStatus());
+            }
+        });
+    }
+
+    public Booking(int bookingId, String tableNumber, String date, String time, int noOfGuests,
+                   int accountId, String name, String email, String phone,String status) {
+        this.bookingId = bookingId;
+        this.tableNumber = tableNumber;
+        this.date = date;
+        this.time = time;
+        this.noOfGuests = noOfGuests;
+        this.accountId = accountId;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.bookingStatus= status;
+    }
+
+    public Booking() {
+
+    }
+
+    public CheckBox getCheckBox() {
+        return checkBox;
+    }
+
+    public void setCheckBox(CheckBox checkBox) {
+        this.checkBox = checkBox;
+    }
+
+    public String getBookingStatus() {
+        return bookingStatus;
+    }
+
+    public void setBookingStatus(String bookingStatus) {
+        this.bookingStatus = bookingStatus;
     }
 
     // Getters and Setters

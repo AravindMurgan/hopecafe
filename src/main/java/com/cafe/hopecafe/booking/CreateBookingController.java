@@ -15,6 +15,7 @@ import java.sql.Connection;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 
 public class CreateBookingController {
@@ -83,9 +84,12 @@ public class CreateBookingController {
         String email = emailField.getText();
         String phoneno= phoneField.getText();
         Integer user_id = UserData.getInstance().getUserid();
+        Random rand = new Random();
+        int randomNum = rand.nextInt((10 - 1) + 1) + 1;
+        String tableNumber = "Table" + randomNum;
 
-        String insertFields = "INSERT INTO bookings (table_number, date, time, no_of_guests,account_id,name,email,phone) VALUES ('";
-        String insertValues = "table_test"+"','"+formattedDate +"','"+time
+        String insertFields = "INSERT INTO bookings (booking_status,table_number, date, time, no_of_guests,account_id,name,email,phone) VALUES ('";
+        String insertValues = "PENDING"+tableNumber+"','"+formattedDate +"','"+time
                 +"','"+noofguests +"','"+user_id +"','"+name+"','"+email+"','"+phoneno +"')";
         String insertToRegister=insertFields+insertValues;
 
