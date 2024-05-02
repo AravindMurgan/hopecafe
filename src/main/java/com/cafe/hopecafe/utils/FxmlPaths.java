@@ -10,5 +10,7 @@ public class FxmlPaths {
     public static final String ORDER_MENU_FXML="/com/cafe/hopecafe/orders/orderMenu.fxml";
     public static final String ADD_ITEMS_TO_CART_FXML="/com/cafe/hopecafe/orders/addItemsToCart.fxml";
 
+    public static final String MANAGER_VIEW_FXML = "/com/cafe/hopecafe/homePages/managerView.fxml";
+    public static final String WAITER_VIEW_FXML = "/com/cafe/hopecafe/homePages/waiterView.fxml";
 
 }
