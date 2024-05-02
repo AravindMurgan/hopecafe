@@ -10,7 +10,13 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
+/**
+ * contains Application and main method
+ *
+ * @author Aravind, Guanlin
+ * @version 02/05/2024 22:14
+ * @since JDK 17
+ */
 public class HelloApplication extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
@@ -30,7 +36,10 @@ public class HelloApplication extends Application {
 
 //        controller.setPrimaryStage(primaryStage);
     }
-
+    /**
+     * launches programme when jvm calls main method
+     * @param args
+     * */
     public static void main(String[] args) {
         launch();
     }
