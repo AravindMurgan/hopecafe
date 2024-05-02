@@ -5,9 +5,21 @@ import java.lang.Class;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * This class contains the method to create and make connection to database.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class DatabaseConnection  {
     public Connection dataseBaseLink;
 
+    /**
+     * This method creates connection to database.
+     * @return This returns connection information to database.
+     */
 
     public Connection getConnection() {
         String databaseName = "hopecafe";

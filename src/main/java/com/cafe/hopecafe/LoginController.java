@@ -23,6 +23,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * This contains methods for homePage function control.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class LoginController implements Initializable {
 
 //    public Stage primaryStage;
@@ -43,16 +51,34 @@ public class LoginController implements Initializable {
     @FXML
     private Hyperlink signUpField;
 
+    /**
+     * {@inheritDoc}
+     * @param url what does this do?
+     * @param resourceBundle what does this do?
+     */
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
     }
+
+    /**
+     * Defines function for cancel button.
+     * @param event This parameter is left empty.
+     */
 
     public void cancelButtonOnAction(ActionEvent event){
         Stage stage = (Stage) cancelButton.getScene().getWindow();
 
         stage.close();
     }
+
+    /**
+     * Defines function for login button.
+     * @param event This parameter is left empty.
+     * @throws SQLException This throws SQLException.
+     * @throws ClassNotFoundException This throws ClassNotFoundException.
+     */
 
     public void loginButtonOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String username = usernameTextField.getText();
@@ -73,12 +99,22 @@ public class LoginController implements Initializable {
 
     }
 
-
+    /**
+     * This checks if username input is valid
+     * @param username This takes username parameter from input.
+     * @return This returns false statements for invalid input.
+     */
     private boolean isValidUsername(String username) {
         // Implement your username validation logic here
         // For example, you might check if the username follows certain rules
         return !username.contains(" ");
     }
+
+    /**
+     * This checks if password input is valid
+     * @param password This takes password parameter from input.
+     * @return This returns false statements for invalid input.
+     */
 
     private boolean isValidPassword(String password) {
         // Implement your password validation logic here
