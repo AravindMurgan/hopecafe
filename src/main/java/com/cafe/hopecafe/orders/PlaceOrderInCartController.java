@@ -1,15 +1,31 @@
 package com.cafe.hopecafe.orders;
 
 
+import com.cafe.hopecafe.DatabaseConnection;
+import com.cafe.hopecafe.utils.FxmlPaths;
+import com.cafe.hopecafe.utils.RootBorderPaneHolder;
+import com.cafe.hopecafe.utils.UserData;
 import javafx.collections.FXCollections;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+
+import java.io.IOException;
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;;
+import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;;
 
 
 public class PlaceOrderInCartController {
@@ -23,36 +39,66 @@ public class PlaceOrderInCartController {
     private Label totalPriceLabel;
     private Integer totalPrice=0;
 
+    private List<Item> cartItemList = new ArrayList<>();
 
 
-    public void initialize(List<Item> itemsList)  {
 
-        TableColumn itemNameCol = new TableColumn("Item Name");
-        TableColumn itemPriceCol = new TableColumn("Price");
+  public void initialize(List<Item> itemsList)  {
 
-        tableView.getColumns().addAll(itemNameCol, itemPriceCol );
-        data = FXCollections.observableArrayList(itemsList);
-        itemNameCol.setCellValueFactory(
-                new PropertyValueFactory<Item,String>("itemName")
-        );
-        itemPriceCol.setCellValueFactory(
-                new PropertyValueFactory<Item,String>("itemPrice")
-        );
+    TableColumn itemNameCol = new TableColumn("Item Name");
+    TableColumn itemPriceCol = new TableColumn("Price");
 
-        for (Item item : itemsList) {
-         String priceString = item.getItemPrice();
-         int price = Integer.parseInt(priceString);
-            totalPrice += price;
-        }
+    tableView.getColumns().addAll(itemNameCol, itemPriceCol );
+    data = FXCollections.observableArrayList(itemsList);
+    itemNameCol.setCellValueFactory(
+            new PropertyValueFactory<Item,String>("itemName")
+    );
+    itemPriceCol.setCellValueFactory(
+            new PropertyValueFactory<Item,String>("itemPrice")
+    );
 
-        tableView.setItems(data);
-        totalPriceLabel.setText(String.valueOf(totalPrice));
+    for (Item item : itemsList) {
+     String priceString = item.getItemPrice();
+     int price = Integer.parseInt(priceString);
+        totalPrice += price;
     }
+    cartItemList.addAll(itemsList); // Merge new items with existing items
+    tableView.setItems(data);
+    totalPriceLabel.setText(String.valueOf(totalPrice));
+}
+public void placeOrderAction(){
+    DatabaseConnection connectNow = new DatabaseConnection();
+    Connection connectDB = connectNow.getConnection();
+    String formattedDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    Integer user_id = UserData.getInstance().getUserid();
+    String fullName = UserData.getInstance().getFirstName() + " " + UserData.getInstance().getLastName();
+    StringBuilder insertQuery = new StringBuilder("INSERT INTO orders ( customer_name, order_date, total_price, order_status, customer_id, order_type, order_item_list) VALUES ");
 
-    public void placeOrderAction(){
+    // Create a comma-separated string of item names
+    String orderItemList = cartItemList.stream()
+            .map(Item::getItemName)
+            .collect(Collectors.joining(", "));
 
+    insertQuery.append("(")
+            .append("'").append(fullName).append("', ")
+            .append("'").append(formattedDateTime).append("', ")
+            .append("'").append(totalPrice).append("', ") // assuming totalPrice is the total price for all items
+            .append("'").append("Pending").append("', ")
+            .append("'").append(user_id).append("', ")
+            .append("'").append("Takeaway").append("', ")
+            .append("'").append(orderItemList).append("'")
+            .append(")");
+
+    try {
+        Statement statement = connectDB.createStatement();
+        statement.executeUpdate(insertQuery.toString());
+        // Clear the cartItemList after the order has been placed
+        cartItemList.clear();
+    } catch (Exception e) {
+        e.printStackTrace();
+        e.getCause();
     }
-
+}
     public void clearCartOnAction(){
         data.clear();
         tableView.refresh();
