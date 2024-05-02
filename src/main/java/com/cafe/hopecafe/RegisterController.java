@@ -1,12 +1,10 @@
 package com.cafe.hopecafe;
 
+import com.cafe.hopecafe.utils.Routing;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
@@ -24,16 +22,16 @@ public class RegisterController {
     @FXML
     private TextField lastNameTextField;
     @FXML
-    private PasswordField setPasswordField;
+    private TextField setPasswordField;
     @FXML
-    private PasswordField confirmPasswordField;
+    private TextField confirmPasswordField;
 
     @FXML
     private Label registerMessageLabel;
     @FXML
     private Label confirmPasswordLabel;
 
-    public void RegsiterButtonOnAction(){
+    public void RegisterButtonOnAction(){
 
         if(setPasswordField.getText().equals(confirmPasswordField.getText())){
             //confirmPasswordLabel.setText("you are set");
@@ -67,7 +65,16 @@ public class RegisterController {
             Statement statement= connectDB.createStatement();
             statement.executeUpdate(insertToRegister);
 
-            registerMessageLabel.setText("User Registered Successfully");
+            //registerMessageLabel.setText("User Registered Successfully");
+
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "User Registered Successfully");
+            alert.showAndWait()
+                    .filter(response -> response == ButtonType.OK)
+                    .ifPresent(response -> {
+                        Routing routing = new Routing();
+                        routing.navigateToLoginPage();
+                    });
 
         }catch (Exception e){
                 e.printStackTrace();
