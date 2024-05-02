@@ -2,6 +2,7 @@ package com.cafe.hopecafe.homePages;
 
 import com.cafe.hopecafe.DatabaseConnection;
 import com.cafe.hopecafe.booking.Booking;
+import com.cafe.hopecafe.orders.OrderItem;
 import com.cafe.hopecafe.utils.FxmlPaths;
 import com.cafe.hopecafe.utils.RootBorderPaneHolder;
 import com.cafe.hopecafe.utils.UserData;
@@ -20,7 +21,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class customerHomePageController {
+public class CustomerHomePageController {
     @FXML
     private TableView bookingsTable;
     @FXML
@@ -31,107 +32,160 @@ public class customerHomePageController {
     private Button requestDeliveryButton;
     @FXML
     private Button createBookingButton;
+    @FXML
+    private TableView upcomingOrdersListTableView;
 
-    public void initialize() throws SQLException {
-        List<Booking> bookings = new ArrayList<>();
+        // Other code...
+
+        public void initialize() throws SQLException {
+            Integer userId = UserData.getInstance().getUserid();
+            List<Booking> bookings = getBookingsForUser(userId);
+            List<OrderItem> orders = getOrderedOrderItemsList(userId);
+
+            // Create an ObservableList from the list of Booking objects
+            ObservableList<Booking> bookingData = FXCollections.observableArrayList(bookings);
+
+            // Set the ObservableList as the items for the TableView
+            bookingsTable.setItems(bookingData);
+
+            // Bind the TableView columns to the properties of the Booking class
+            bindTableColumns();
+
+            ObservableList<OrderItem> orderedOrderItemsList = FXCollections.observableArrayList(orders);
+
+            TableColumn orderId = new TableColumn("Order ID");
+            TableColumn name = new TableColumn("Name");
+            TableColumn orderedOrderItems = new TableColumn("Ordered Items List");
+            TableColumn dateAndTime = new TableColumn("Date and Time");
+            TableColumn orderStatus = new TableColumn("Order Status");
+            TableColumn totalPrice = new TableColumn("Order Type");
+
+
+            upcomingOrdersListTableView.getColumns().addAll(orderId, name, orderedOrderItems, dateAndTime,orderStatus, totalPrice);
+
+
+            orderId.setCellValueFactory(
+                    new PropertyValueFactory<OrderItem,String>("orderId")
+            );
+            name.setCellValueFactory(
+                    new PropertyValueFactory<OrderItem,String>("customerName")
+            );
+            orderedOrderItems.setCellValueFactory(
+                    new PropertyValueFactory<OrderItem,String>("orderItemList")
+            );
+            dateAndTime.setCellValueFactory(
+                    new PropertyValueFactory<OrderItem,String>("itemPrice")
+            );
+            orderStatus.setCellValueFactory(
+                    new PropertyValueFactory<OrderItem,String>("orderStatus")
+            );
+            totalPrice.setCellValueFactory(
+                    new PropertyValueFactory<OrderItem,String>("orderType")
+            );
+
+            upcomingOrdersListTableView.setItems(orderedOrderItemsList);
+
+
+        }
+
+    private List<OrderItem> getOrderedOrderItemsList(Integer userId) throws SQLException {
+        List<OrderItem> orderedOrderItems = new ArrayList<>();
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
-//        Statement statement = connectDB.createStatement();
-        Integer userId = UserData.getInstance().getUserid();
-        PreparedStatement statement = connectDB.prepareStatement("SELECT * FROM bookings WHERE account_id = ?");
+        PreparedStatement statement = connectDB.prepareStatement("SELECT * FROM orders WHERE customer_id = ?");
         statement.setInt(1, userId);
 
-        try(ResultSet resultSet = statement.executeQuery()){
+        try (ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                int bookingId = resultSet.getInt("booking_id");
-                String tableNumber = resultSet.getString("table_number");
-                String date = resultSet.getString("date");
-                String time = resultSet.getString("time");
-                int noOfGuests = resultSet.getInt("no_of_guests");
-                int accountId = resultSet.getInt("account_id");
-                String name = resultSet.getString("name");
-                String email = resultSet.getString("email");
-                String phone = resultSet.getString("phone");
-                Booking booking = new Booking(bookingId, tableNumber, date, time, noOfGuests, accountId, name, email, phone);
-                bookings.add(booking);
+                String orderId = String.valueOf(resultSet.getInt("order_id"));
+                String customerName = resultSet.getString("customer_name");
+                String orderItemList = resultSet.getString("order_item_list");
+                String itemPrice = resultSet.getString("total_price");
+                String orderStatus = resultSet.getString("order_status");
+                String orderType = resultSet.getString("order_type");
+                OrderItem item = new OrderItem(orderId,customerName, orderItemList, itemPrice, orderStatus, orderType);
+                orderedOrderItems.add(item);
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
-
-
-
-
-// 2. Create an ObservableList from the list of Booking objects
-        ObservableList<Booking> bookingData = FXCollections.observableArrayList(bookings);
-
-// 3. Set the ObservableList as the items for the TableView
-        bookingsTable.setItems(bookingData);
-
-// 4. Bind the TableView columns to the properties of the Booking class
-
-
-        TableColumn<Booking, String> nameColumn = (TableColumn<Booking, String>)
-                bookingsTable.getColumns().get(0);
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        TableColumn<Booking, String> dateColumn = (TableColumn<Booking, String>)
-                bookingsTable.getColumns().get(1);
-        dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
-
-        TableColumn<Booking, String> timeColumn = (TableColumn<Booking, String>)
-                bookingsTable.getColumns().get(2);
-        timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
-
-        TableColumn<Booking, Integer> noOfGuestsColumn = (TableColumn<Booking, Integer>)
-                bookingsTable.getColumns().get(3);
-        noOfGuestsColumn.setCellValueFactory(new PropertyValueFactory<>("no_of_guests"));
-
-        TableColumn<Booking, Integer> tableNo = (TableColumn<Booking, Integer>)
-                bookingsTable.getColumns().get(4);
-        noOfGuestsColumn.setCellValueFactory(new PropertyValueFactory<>("table_number"));
-
-//        TableColumn<Booking, String> nameColumn = (TableColumn<Booking, String>) bookingsTable.getColumns().get(6);
-//        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
+        return orderedOrderItems;
     }
 
-    public void createBookingButtonOnAction(){
-        BorderPane rootPane =RootBorderPaneHolder.getInstance().getRootPane();
-        try {
-            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.CREATE_BOOKING_FXML));
-            rootPane.getChildren().setAll(fxmlLoader);
-        }catch (Exception e){
-            e.printStackTrace();
-            e.getCause();
+        private List<Booking> getBookingsForUser(Integer userId) throws SQLException {
+            List<Booking> bookings = new ArrayList<>();
+            DatabaseConnection connectNow = new DatabaseConnection();
+            Connection connectDB = connectNow.getConnection();
+            PreparedStatement statement = connectDB.prepareStatement("SELECT * FROM bookings WHERE account_id = ?");
+            statement.setInt(1, userId);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int bookingId = resultSet.getInt("booking_id");
+                    String tableNumber = resultSet.getString("table_number");
+                    String date = resultSet.getString("date");
+                    String time = resultSet.getString("time");
+                    int noOfGuests = resultSet.getInt("no_of_guests");
+                    int accountId = resultSet.getInt("account_id");
+                    String name = resultSet.getString("name");
+                    String email = resultSet.getString("email");
+                    String phone = resultSet.getString("phone");
+                    Booking booking = new Booking(bookingId, tableNumber, date, time, noOfGuests, accountId, name, email, phone,"");
+                    bookings.add(booking);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return bookings;
         }
-    }
 
-    public void placeEatInOrderOnAction(){
-        BorderPane rootPane =RootBorderPaneHolder.getInstance().getRootPane();
-        try {
-            AnchorPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.ORDER_MENU_FXML));
-            rootPane.getChildren().setAll(fxmlLoader);
-        }catch (Exception e){
-            e.printStackTrace();
-            e.getCause();
+        private void bindTableColumns() {
+            TableColumn<Booking, String> nameColumn = (TableColumn<Booking, String>)
+                    bookingsTable.getColumns().get(0);
+            nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+            TableColumn<Booking, String> dateColumn = (TableColumn<Booking, String>)
+                    bookingsTable.getColumns().get(1);
+            dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+
+            TableColumn<Booking, String> timeColumn = (TableColumn<Booking, String>)
+                    bookingsTable.getColumns().get(2);
+            timeColumn.setCellValueFactory(new PropertyValueFactory<>("time"));
+
+            TableColumn<Booking, Integer> noOfGuestsColumn = (TableColumn<Booking, Integer>)
+                    bookingsTable.getColumns().get(3);
+            noOfGuestsColumn.setCellValueFactory(new PropertyValueFactory<>("noOfGuests"));
+
+            TableColumn<Booking, Integer> tableNo = (TableColumn<Booking, Integer>)
+                    bookingsTable.getColumns().get(4);
+            tableNo.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
         }
-    }
 
+
+        public void createBookingButtonOnAction() {
+            BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
+            try {
+                BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.CREATE_BOOKING_FXML));
+                rootPane.getChildren().setAll(fxmlLoader);
+            } catch (Exception e) {
+                e.printStackTrace();
+                e.getCause();
+            }
+        }
+
+        public void placeEatInOrderOnAction() {
+            BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
+            try {
+                AnchorPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.ORDER_MENU_FXML));
+                rootPane.getChildren().setAll(fxmlLoader);
+            } catch (Exception e) {
+                e.printStackTrace();
+                e.getCause();
+            }
+        }
 
 }
 
-//public class Booking {
-//    private LocalDate date;
-//    private LocalTime time;
-//    private int guests;
-//
-//    public Booking(LocalDate date, LocalTime time, int guests) {
-//        this.date = date;
-//        this.time = time;
-//        this.guests = guests;
-//    }
-//
-//    // Getters and setters
-//}
+
