@@ -1,7 +1,6 @@
 package com.cafe.hopecafe.orders;
 
 import com.cafe.hopecafe.DatabaseConnection;
-import com.cafe.hopecafe.Person;
 import com.cafe.hopecafe.utils.FxmlPaths;
 import com.cafe.hopecafe.utils.RootBorderPaneHolder;
 import com.cafe.hopecafe.utils.Routing;
