@@ -5,6 +5,8 @@ public class UserData {
     private static UserData instance;
 
     private String userName;
+    private String firstName;
+    private String lastName;
     private Integer userid;
 
     public UserData() {
@@ -30,7 +32,21 @@ public class UserData {
         return userid;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
     public void setUserid(Integer userid) {
         this.userid = userid;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 }
