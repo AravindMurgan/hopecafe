@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cafe.hopecafe.orders.AddItemToCartController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cafe.hopecafe.orders.AddItemToCartController">
    <children>
-      <VBox layoutX="14.0" layoutY="53.0" prefHeight="277.0" prefWidth="575.0">
+      <VBox layoutX="135.0" layoutY="128.0" prefHeight="316.0" prefWidth="575.0">
          <children>
-            <TableView fx:id="tableView" VBox.vgrow="ALWAYS" />
+            <TableView fx:id="tableView" prefHeight="301.0" prefWidth="575.0" VBox.vgrow="ALWAYS" />
          </children>
       </VBox>
-      <Label layoutX="59.0" layoutY="14.0" prefHeight="37.0" prefWidth="152.0" text="Add Items to Cart">
+      <Label layoutX="80.0" layoutY="66.0" prefHeight="37.0" prefWidth="152.0" text="Add Items to Cart">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Button layoutX="116.0" layoutY="346.0" mnemonicParsing="false" onAction="#addToCartOnAction" prefHeight="37.0" prefWidth="81.0" text="Add to Cart" />
-      <Button layoutX="487.0" layoutY="14.0" mnemonicParsing="false" onAction="#goBackOnAction" prefHeight="30.0" prefWidth="75.0" text="Go Back" />
+      <MFXButton buttonType="RAISED" layoutX="605.0" layoutY="66.0" onAction="#goBackOnAction" prefHeight="37.0" prefWidth="94.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Go Back" />
+      <MFXButton buttonType="RAISED" layoutX="88.0" layoutY="501.0" onAction="#addToCartOnAction" prefHeight="37.0" prefWidth="94.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Add To Cart" />
    </children>
 </AnchorPane>
