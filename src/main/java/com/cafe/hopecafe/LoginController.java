@@ -52,7 +52,7 @@ public class LoginController implements Initializable {
     private Hyperlink signUpField;
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc} what does this do?
      * @param url what does this do?
      * @param resourceBundle what does this do?
      */
@@ -122,6 +122,12 @@ public class LoginController implements Initializable {
         return password.length() >= 8;
     }
 
+    /**
+     * This method first validate if login details are valid and direct user to correspond page.     *
+     * @throws SQLException This throws SQLException.
+     * @throws ClassNotFoundException This throws ClassNotFoundException.
+     */
+
       public void validateLogin() throws SQLException, ClassNotFoundException {
         DatabaseConnection connectNow= new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
@@ -171,6 +177,10 @@ public class LoginController implements Initializable {
             e.getCause();
         }
     }
+
+    /**
+     *  This method direct user to signup page on click.
+     */
     public void signUpOnAction(){
         RootBorderPaneHolder.getInstance().setRootPane(rootPane);
         try {
