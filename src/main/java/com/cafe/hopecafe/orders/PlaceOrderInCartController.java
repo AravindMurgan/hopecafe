@@ -4,6 +4,7 @@ package com.cafe.hopecafe.orders;
 import com.cafe.hopecafe.DatabaseConnection;
 import com.cafe.hopecafe.utils.FxmlPaths;
 import com.cafe.hopecafe.utils.RootBorderPaneHolder;
+import com.cafe.hopecafe.utils.Routing;
 import com.cafe.hopecafe.utils.UserData;
 import javafx.collections.FXCollections;
 
@@ -103,5 +104,10 @@ public void placeOrderAction(){
         data.clear();
         tableView.refresh();
     }
+
+//    public void goBackOnAction(){
+//        Routing routing = new Routing();
+//        routing.routeTo(FxmlPaths.ORDER_MENU_FXML);
+//    }
 
 }
