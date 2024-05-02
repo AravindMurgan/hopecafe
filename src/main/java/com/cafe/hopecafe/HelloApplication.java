@@ -16,7 +16,6 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) throws IOException, SQLException {
        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(FxmlPaths.LOGIN_FXML));
         Parent root = fxmlLoader.load();
-//        FXMLLoader fxmlLoader = new
 //        FXMLLoader(HelloApplication.class.getResource("orders/addItemsToCart.fxml"));
 //
 //
