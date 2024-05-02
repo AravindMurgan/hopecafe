@@ -86,47 +86,55 @@ public class LoginController implements Initializable {
         return password.length() >= 8;
     }
 
-    public void validateLogin() throws SQLException, ClassNotFoundException {
-        DatabaseConnection connectNow= new DatabaseConnection();
-        Connection connectDB = connectNow.getConnection();
-        String username= usernameTextField.getText();
-        String password= passwordTextField.getText();
+  public void validateLogin() throws SQLException, ClassNotFoundException {
+    DatabaseConnection connectNow= new DatabaseConnection();
+    Connection connectDB = connectNow.getConnection();
+    String username= usernameTextField.getText();
+    String password= passwordTextField.getText();
 
+    String verifyLogin = "SELECT * FROM user_account WHERE username='"+
+            username + "' AND password='"+password+"'";
 
-        String verifyLogin = "SELECT * FROM user_account WHERE username='"+
-                username + "' AND password='"+password+"'";
+    try {
+        Statement statement= connectDB.createStatement();
+        ResultSet queryResult = statement.executeQuery(verifyLogin);
 
-        try {
-            Statement statement= connectDB.createStatement();
-            ResultSet queryResult = statement.executeQuery(verifyLogin);
-            System.out.println(queryResult);
-            System.out.println(queryResult);
+        if(queryResult.next()){
+            int userId = queryResult.getInt("account_id");
+            String firsName = queryResult.getString("first_name");
+            String lastName = queryResult.getString("last_name");
+            String userType = queryResult.getString("user_type"); // Assuming you have a user_type column in your user_account table
 
-            if(queryResult.next()){
-                    int userId = queryResult.getInt("account_id");
-                    System.out.println("userID::::::  "+userId);
-                    UserData.getInstance().setUserid(userId);
-                    RootBorderPaneHolder.getInstance().setRootPane(rootPane);
-                    try {
-                        BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.CUSTOMER_HOME_PAGE));
-                        rootPane.getChildren().setAll(fxmlLoader);
-                    }catch (Exception e){
-                        e.printStackTrace();
-                        e.getCause();
-                    }
-                    //loginMessageLabel.setText("Congrats");
-                   // createAccountForm();
-            }else{
-                loginMessageLabel.setText("Invalid user login, Please try again");
+            UserData.getInstance().setUserid(userId);
+            UserData.getInstance().setFirstName(firsName);
+            UserData.getInstance().setLastName(lastName);
+            RootBorderPaneHolder.getInstance().setRootPane(rootPane);
+
+            String fxmlPath;
+            if ("manager".equalsIgnoreCase(userType)) {
+                fxmlPath = FxmlPaths.MANAGER_VIEW_FXML;
+            } else if ("waiter".equalsIgnoreCase(userType)) {
+                fxmlPath = FxmlPaths.WAITER_VIEW_FXML;
+            } else {
+                fxmlPath = FxmlPaths.CUSTOMER_HOME_PAGE;
             }
 
-        }catch (Exception e){
+            try {
+                AnchorPane fxmlLoader = FXMLLoader.load(getClass().getResource(fxmlPath));
+                rootPane.getChildren().setAll(fxmlLoader);
+            }catch (Exception e){
                 e.printStackTrace();
                 e.getCause();
+            }
+        }else{
+            loginMessageLabel.setText("Invalid user login, Please try again");
         }
 
+    }catch (Exception e){
+        e.printStackTrace();
+        e.getCause();
     }
-
+}
     public void signUpOnAction(){
 
         try {
