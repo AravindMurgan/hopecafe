@@ -136,9 +136,9 @@ public class LoginController implements Initializable {
     }
 }
     public void signUpOnAction(){
-
+        RootBorderPaneHolder.getInstance().setRootPane(rootPane);
         try {
-            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.REGISTER_FXML));
+            AnchorPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.REGISTER_FXML));
             rootPane.getChildren().setAll(fxmlLoader);
         }catch (Exception e){
                e.printStackTrace();
