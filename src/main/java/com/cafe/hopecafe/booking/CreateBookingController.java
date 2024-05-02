@@ -8,6 +8,7 @@ import com.cafe.hopecafe.utils.UserData;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
@@ -79,7 +80,7 @@ public class CreateBookingController {
         String formattedDate = getSelectedDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
         String time = timeField.getText();
-        String noofguests=noofguestsField.getText();
+        int noofguests=Integer.parseInt(noofguestsField.getText()) ;
         String name = nameField.getText();
         String email = emailField.getText();
         String phoneno= phoneField.getText();
@@ -88,37 +89,31 @@ public class CreateBookingController {
         int randomNum = rand.nextInt((10 - 1) + 1) + 1;
         String tableNumber = "Table" + randomNum;
 
-        String insertFields = "INSERT INTO bookings (booking_status,table_number, date, time, no_of_guests,account_id,name,email,phone) VALUES ('";
-        String insertValues = "PENDING"+tableNumber+"','"+formattedDate +"','"+time
-                +"','"+noofguests +"','"+user_id +"','"+name+"','"+email+"','"+phoneno +"')";
-        String insertToRegister=insertFields+insertValues;
+        String insertFields = "INSERT INTO bookings (booking_status,table_number, date, time, no_of_guests,account_id,name,email,phone) VALUES (";
+        String insertValues = "'PENDING', '"+tableNumber+"', '"+formattedDate+"', '"+time +"', '"+noofguests +"', '"+user_id +"', '"+name+"', '"+email+"', '"+phoneno +"'";
+        String insertToRegister=insertFields+insertValues+")";
 
         try{
-
             Statement statement= connectDB.createStatement();
             statement.executeUpdate(insertToRegister);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Booking created successfully");
-            //registerMessageLabel.setText("User Registered Successfully");
             BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
             alert.showAndWait()
                     .filter(response -> response == ButtonType.OK)
                     .ifPresent(response -> {
                         try {
-                            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.CUSTOMER_HOME_PAGE));
+                            AnchorPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.CUSTOMER_HOME_PAGE));
                             rootPane.getChildren().setAll(fxmlLoader);
                         } catch (IOException e) {
                             e.printStackTrace();
-                            // Handle the IOException
                         }
                     });
-
-
         }catch (Exception e){
             e.printStackTrace();
             e.getCause();
         }
-
     }
+
 
     public void cancelButtonOnAction(){
         new Routing().navigateToHomePage(FxmlPaths.CUSTOMER_HOME_PAGE);
