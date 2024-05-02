@@ -179,6 +179,13 @@ public void rejectBookingOnAction() {
     }
 }
 
+    public void logoutOnAction(){
+//        UserData.getInstance().clearUserData();
+//        Routing routing = new Routing();
+//        routing.navigateToLoginPage();
+        //TO DO
+    }
+
 }
 
 

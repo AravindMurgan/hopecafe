@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="427.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cafe.hopecafe.orders.PlaceOrderInCartController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cafe.hopecafe.orders.PlaceOrderInCartController">
     <children>
-        <VBox layoutX="14.0" layoutY="53.0" prefHeight="277.0" prefWidth="575.0">
+        <VBox layoutX="59.0" layoutY="116.0" prefHeight="277.0" prefWidth="575.0">
             <children>
                 <TableView fx:id="tableView" VBox.vgrow="ALWAYS" />
             </children>
         </VBox>
-        <Label layoutX="59.0" layoutY="14.0" prefHeight="37.0" prefWidth="75.0" text="Cart">
+        <Label layoutX="59.0" layoutY="51.0" prefHeight="37.0" prefWidth="75.0" text="CART">
             <font>
                 <Font name="System Bold" size="18.0" />
             </font>
         </Label>
-        <Button layoutX="116.0" layoutY="346.0" mnemonicParsing="false" onAction="#placeOrderAction" prefHeight="37.0" prefWidth="81.0" text="Place Order" />
-        <Button layoutX="487.0" layoutY="14.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="75.0" text="Go Back" />
-      <Button layoutX="221.0" layoutY="346.0" mnemonicParsing="false" onAction="#clearCartOnAction" prefHeight="37.0" prefWidth="81.0" text="Clear Cart" />
-      <Label layoutX="596.0" layoutY="98.0" prefHeight="49.0" prefWidth="176.0" text="TOTAL PRICE (£) Inc.Tax:">
+      <Label layoutX="666.0" layoutY="230.0" prefHeight="49.0" prefWidth="176.0" text="TOTAL PRICE (£) Inc.Tax:">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label fx:id="totalPriceLabel" layoutX="596.0" layoutY="147.0" prefHeight="49.0" prefWidth="152.0" text="20 (£);">
+      <Label fx:id="totalPriceLabel" layoutX="666.0" layoutY="276.0" prefHeight="49.0" prefWidth="152.0" text=" (£);">
          <font>
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
+      <MFXButton buttonType="RAISED" layoutX="59.0" layoutY="497.0" onAction="#placeOrderAction" prefHeight="37.0" prefWidth="101.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Place Order" />
+      <MFXButton buttonType="RAISED" layoutX="197.0" layoutY="497.0" onAction="#clearCartOnAction" prefHeight="37.0" prefWidth="101.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Clear Cart" />
     </children>
 </AnchorPane>

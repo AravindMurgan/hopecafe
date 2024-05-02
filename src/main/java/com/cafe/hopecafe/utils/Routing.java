@@ -85,7 +85,7 @@ public class Routing {
             PlaceOrderInCartController controller = fxmlLoader.getController();
             controller.initialize(list);
             Stage stage = new Stage();
-            Scene scene = new Scene(root, 800, 427);
+            Scene scene = new Scene(root, 900, 600);
             stage.setTitle("Cart");
             stage.setScene(scene);
             stage.show();

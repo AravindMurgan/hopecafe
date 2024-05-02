@@ -1,18 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane fx:id="rootPane" maxHeight="-Infinity"
-            maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cafe.hopecafe.orders.OrderMenuController">
+<?import javafx.scene.control.Label?>
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cafe.hopecafe.orders.OrderMenuController">
    <children>
-      <Button layoutX="159.0" layoutY="90.0" mnemonicParsing="false" onAction="#startersOnAction" prefHeight="56.0" prefWidth="67.0" text="Starters" />
-      <Button layoutX="248.0" layoutY="90.0" mnemonicParsing="false" onAction="#mainsOnAction" prefHeight="56.0" prefWidth="67.0" text="Mains" />
-      <Button layoutX="333.0" layoutY="90.0" mnemonicParsing="false" onAction="#sidesOnAction" prefHeight="56.0" prefWidth="67.0" text="Sides" />
-      <Button layoutX="159.0" layoutY="188.0" mnemonicParsing="false" onAction="#drinksOnAction" prefHeight="56.0" prefWidth="67.0" text="Drinks" />
-      <Button layoutX="255.0" layoutY="188.0" mnemonicParsing="false" onAction="#dessertOnAction" prefHeight="56.0" prefWidth="67.0" text="Dessert" />
+      <MFXButton buttonType="RAISED" layoutX="204.0" layoutY="223.0" onAction="#startersOnAction" prefHeight="56.0" prefWidth="132.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Starters">
+         <font>
+            <Font size="18.0" />
+         </font></MFXButton>
+      <MFXButton buttonType="RAISED" layoutX="384.0" layoutY="223.0" onAction="#mainsOnAction" prefHeight="56.0" prefWidth="132.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Mains">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </MFXButton>
+      <MFXButton buttonType="RAISED" layoutX="558.0" layoutY="223.0" onAction="#sidesOnAction" prefHeight="56.0" prefWidth="132.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Sides">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </MFXButton>
+      <MFXButton buttonType="RAISED" layoutX="204.0" layoutY="321.0" onAction="#drinksOnAction" prefHeight="56.0" prefWidth="132.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Drinks">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </MFXButton>
+      <MFXButton buttonType="RAISED" layoutX="384.0" layoutY="321.0" onAction="#dessertOnAction" prefHeight="56.0" prefWidth="132.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Dessert">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </MFXButton>
+      <Label layoutX="97.0" layoutY="52.0" prefHeight="69.0" prefWidth="119.0" text="Menu Type :">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
