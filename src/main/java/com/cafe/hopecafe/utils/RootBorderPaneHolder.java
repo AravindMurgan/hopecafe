@@ -6,6 +6,7 @@ public class RootBorderPaneHolder {
     private static RootBorderPaneHolder instance;
     private BorderPane rootPane;
 
+
     private RootBorderPaneHolder() {
         // Private constructor to prevent instantiation
     }
