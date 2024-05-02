@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"com.cafe.hopecafe","l":"com.cafe.hopecafe"},{"m":"com.cafe.hopecafe","l":"com.cafe.hopecafe.booking"},{"m":"com.cafe.hopecafe","l":"com.cafe.hopecafe.homePages"},{"m":"com.cafe.hopecafe","l":"com.cafe.hopecafe.orders"},{"m":"com.cafe.hopecafe","l":"com.cafe.hopecafe.utils"}];updateSearchResults();
