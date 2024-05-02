@@ -31,5 +31,6 @@
           </Label>
           <Button fx:id="approveBooking" layoutX="26.0" layoutY="499.0" mnemonicParsing="false" onAction="#approveBookingOnAction" prefHeight="25.0" prefWidth="132.0" text="Approve Booking" />
       <Button fx:id="rejectBooking" layoutX="194.0" layoutY="499.0" mnemonicParsing="false" onAction="#rejectBookingOnAction" prefHeight="25.0" prefWidth="132.0" text="Reject Booking" />
+      <Button layoutX="675.0" layoutY="17.0" mnemonicParsing="false" onAction="#logoutOnAction" prefHeight="25.0" prefWidth="72.0" text="Logout" />
     </children>
 </AnchorPane>
