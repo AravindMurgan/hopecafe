@@ -163,7 +163,9 @@ public class Routing {
     public void navigateToPage(String path) {
         BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
         try {
-            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(path));
+
+
+            AnchorPane fxmlLoader = FXMLLoader.load(getClass().getResource(path));
             if(rootPane != null) {
                 rootPane.getChildren().setAll(fxmlLoader);
             } else {

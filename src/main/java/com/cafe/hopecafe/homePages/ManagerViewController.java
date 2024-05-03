@@ -1,7 +1,9 @@
 package com.cafe.hopecafe.homePages;
 
 import com.cafe.hopecafe.utils.FxmlPaths;
+import com.cafe.hopecafe.utils.RootBorderPaneHolder;
 import com.cafe.hopecafe.utils.Routing;
+import com.cafe.hopecafe.utils.UserData;
 
 
 /**
@@ -38,6 +40,7 @@ public class ManagerViewController {
      */
 
     public void logoutOnAction(){
+        UserData.getInstance().clearUserData();
         Routing routing = new Routing();
         routing.navigateToLoginPage();
     }
