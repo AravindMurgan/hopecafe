@@ -85,9 +85,7 @@ public class LoginController implements Initializable {
             loginMessageLabel.setText("Username and password are required.");
         } else if (!isValidUsername(username)) {
             loginMessageLabel.setText("Invalid username format.");
-        } else if (!isValidPassword(password)) {
-            loginMessageLabel.setText("Invalid password format.");
-        } else {
+        }  else {
 
             validateLogin();
         }
@@ -112,11 +110,11 @@ public class LoginController implements Initializable {
      * @return This returns false statements for invalid input.
      */
 
-    private boolean isValidPassword(String password) {
-        // Implement your password validation logic here
-        // For example, you might check if the password meets certain criteria
-        return password.length() >= 8;
-    }
+//    private boolean isValidPassword(String password) {
+//        // Implement your password validation logic here
+//        // For example, you might check if the password meets certain criteria
+//        return password.length() >= 8;
+//    }
 
     /**
      * This method first validate if login details are valid and direct user to correspond page.     *
@@ -153,6 +151,8 @@ public class LoginController implements Initializable {
                     fxmlPath = FxmlPaths.MANAGER_VIEW_FXML;
                 } else if ("waiter".equalsIgnoreCase(userType)) {
                     fxmlPath = FxmlPaths.WAITER_VIEW_FXML;
+                } else if ("chef".equalsIgnoreCase(userType)) {
+                    fxmlPath = FxmlPaths.CHEF_VIEW;
                 } else {
                     fxmlPath = FxmlPaths.CUSTOMER_HOME_PAGE;
                 }

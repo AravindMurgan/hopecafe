@@ -2,6 +2,8 @@ package com.cafe.hopecafe.homePages;
 
 import com.cafe.hopecafe.DatabaseConnection;
 import com.cafe.hopecafe.booking.Booking;
+import com.cafe.hopecafe.utils.Routing;
+import com.cafe.hopecafe.utils.UserData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -205,10 +207,10 @@ public void rejectBookingOnAction() {
      */
 
     public void logoutOnAction(){
-//        UserData.getInstance().clearUserData();
-//        Routing routing = new Routing();
-//        routing.navigateToLoginPage();
-        //TO DO
+        UserData.getInstance().clearUserData();
+        Routing routing = new Routing();
+        routing.navigateToLoginPage();
+
     }
 
 }

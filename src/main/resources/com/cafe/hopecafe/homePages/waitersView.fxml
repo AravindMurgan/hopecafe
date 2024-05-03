@@ -30,7 +30,7 @@
               </font>
           </Label>
         <MFXButton buttonType="RAISED" layoutX="652.0" layoutY="35.0" onAction="#logoutOnAction" prefHeight="42.0" prefWidth="102.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Logout" />
-      <MFXButton buttonType="RAISED" layoutX="62.0" layoutY="512.0" onAction="#rejectBookingOnAction" prefHeight="42.0" prefWidth="129.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Approval Booking" />
+      <MFXButton buttonType="RAISED" layoutX="62.0" layoutY="512.0" onAction="#approveBookingOnAction" prefHeight="42.0" prefWidth="129.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Approval Booking" />
       <MFXButton buttonType="RAISED" layoutX="219.0" layoutY="512.0" onAction="#rejectBookingOnAction" prefHeight="42.0" prefWidth="129.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Reject Booking" />
     </children>
 </AnchorPane>

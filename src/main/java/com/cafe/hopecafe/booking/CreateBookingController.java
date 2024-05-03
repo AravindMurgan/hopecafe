@@ -5,6 +5,7 @@ import com.cafe.hopecafe.utils.FxmlPaths;
 import com.cafe.hopecafe.utils.Routing;
 import com.cafe.hopecafe.utils.RootBorderPaneHolder;
 import com.cafe.hopecafe.utils.UserData;
+import io.github.palexdev.materialfx.controls.MFXDatePicker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -29,7 +30,7 @@ import java.util.Random;
 public class CreateBookingController {
 
     @FXML
-    private DatePicker dateField;
+    private MFXDatePicker dateField;
     @FXML
     private TextField timeField;
     @FXML
