@@ -1,6 +1,5 @@
 package com.cafe.hopecafe;
 
-import com.cafe.hopecafe.orders.AddItemToCartController;
 import com.cafe.hopecafe.utils.FxmlPaths;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,7 +16,7 @@ import java.sql.SQLException;
  * @version 15/04/2024 22:14
  * @since JDK 17
  */
-public class HelloApplication extends Application {
+public class Main extends Application {
     /**
      *
      * Set and initialise primaryStage.
@@ -27,7 +26,7 @@ public class HelloApplication extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws IOException, SQLException {
-       FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(FxmlPaths.LOGIN_FXML));
+       FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource(FxmlPaths.LOGIN_FXML));
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root, 900, 600);
         primaryStage.setTitle("Hope Cafe");

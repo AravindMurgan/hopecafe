@@ -1,6 +1,6 @@
 package com.cafe.hopecafe.utils;
 
-import com.cafe.hopecafe.HelloApplication;
+import com.cafe.hopecafe.Main;
 import com.cafe.hopecafe.orders.AddItemToCartController;
 import com.cafe.hopecafe.orders.Item;
 import com.cafe.hopecafe.orders.PlaceOrderInCartController;
@@ -11,7 +11,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -66,7 +65,7 @@ public class Routing {
 
         try {
             FXMLLoader fxmlLoader = new FXMLLoader
-                    (HelloApplication.class.getResource(path));
+                    (Main.class.getResource(path));
             Parent root = fxmlLoader.load();
             Stage stage = new Stage();
             Scene scene = new Scene(root, 800, 427);
@@ -97,7 +96,7 @@ public class Routing {
             controller.initialize(itemType);
             rootPane.getChildren().setAll(root);
         } catch (Exception e) {
-            e.printStackTrace();.
+            e.printStackTrace();
         }
 
     }
