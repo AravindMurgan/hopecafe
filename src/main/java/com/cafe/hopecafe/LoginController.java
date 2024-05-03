@@ -51,11 +51,7 @@ public class LoginController implements Initializable {
     @FXML
     private Hyperlink signUpField;
 
-    /**
-     * {@inheritDoc} what does this do?
-     * @param url what does this do?
-     * @param resourceBundle what does this do?
-     */
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
