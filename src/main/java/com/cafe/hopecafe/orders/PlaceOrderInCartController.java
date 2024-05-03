@@ -2,6 +2,7 @@ package com.cafe.hopecafe.orders;
 
 
 import com.cafe.hopecafe.DatabaseConnection;
+import com.cafe.hopecafe.homePages.OrderType;
 import com.cafe.hopecafe.utils.FxmlPaths;
 import com.cafe.hopecafe.utils.RootBorderPaneHolder;
 import com.cafe.hopecafe.utils.Routing;
@@ -87,7 +88,7 @@ public class PlaceOrderInCartController {
         Integer user_id = UserData.getInstance().getUserid();
         String fullName = UserData.getInstance().getFirstName() + " " + UserData.getInstance().getLastName();
         StringBuilder insertQuery = new StringBuilder("INSERT INTO orders ( customer_name, order_date, total_price, order_status, customer_id, order_type, order_item_list) VALUES ");
-
+        String orderType = OrderType.getInstance().getOrderType();
         // Create a comma-separated string of item names
         String orderItemList = cartItemList.stream()
                 .map(Item::getItemName)
@@ -99,7 +100,7 @@ public class PlaceOrderInCartController {
                 .append("'").append(totalPrice).append("', ") // assuming totalPrice is the total price for all items
                 .append("'").append("Pending").append("', ")
                 .append("'").append(user_id).append("', ")
-                .append("'").append("Takeaway").append("', ")
+                .append("'").append(orderType).append("', ")
                 .append("'").append(orderItemList).append("'")
                 .append(")");
 
