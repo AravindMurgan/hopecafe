@@ -26,6 +26,7 @@
                   <TableColumn prefWidth="120.0" text="Time" />
                   <TableColumn prefWidth="120.0" text="Number Of Guests" />
                   <TableColumn prefWidth="120.0" text="Table Number" />
+                  <TableColumn prefWidth="120.0" text="Booking Status" />
                </columns>
             </TableView>
             <Label prefHeight="30.0" prefWidth="177.0" text="Your Upcoming Orders">

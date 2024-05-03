@@ -67,18 +67,23 @@ public class CustomerHomePageController {
             ObservableList<OrderItem> orderedOrderItemsList = FXCollections.observableArrayList(orders);
 
             TableColumn orderId = new TableColumn("Order ID");
+            TableColumn orderType = new TableColumn("Order Type");
             TableColumn name = new TableColumn("Name");
             TableColumn orderedOrderItems = new TableColumn("Ordered Items List");
             TableColumn dateAndTime = new TableColumn("Date and Time");
             TableColumn orderStatus = new TableColumn("Order Status");
-            TableColumn totalPrice = new TableColumn("Order Type");
+            TableColumn totalPrice = new TableColumn("Total Price");
 
 
-            upcomingOrdersListTableView.getColumns().addAll(orderId, name, orderedOrderItems, dateAndTime,orderStatus, totalPrice);
+
+            upcomingOrdersListTableView.getColumns().addAll(orderId,orderType, name, orderedOrderItems, dateAndTime,orderStatus, totalPrice);
 
 
             orderId.setCellValueFactory(
                     new PropertyValueFactory<OrderItem,String>("orderId")
+            );
+            orderType.setCellValueFactory(
+                new PropertyValueFactory<OrderItem,String>("orderType")
             );
             name.setCellValueFactory(
                     new PropertyValueFactory<OrderItem,String>("customerName")
@@ -92,9 +97,10 @@ public class CustomerHomePageController {
             orderStatus.setCellValueFactory(
                     new PropertyValueFactory<OrderItem,String>("orderStatus")
             );
-            totalPrice.setCellValueFactory(
-                    new PropertyValueFactory<OrderItem,String>("orderType")
-            );
+        totalPrice.setCellValueFactory(
+                new PropertyValueFactory<OrderItem,String>("totalPrice")
+        );
+
 
             upcomingOrdersListTableView.setItems(orderedOrderItemsList);
 
@@ -158,7 +164,9 @@ public class CustomerHomePageController {
                     String name = resultSet.getString("name");
                     String email = resultSet.getString("email");
                     String phone = resultSet.getString("phone");
-                    Booking booking = new Booking(bookingId, tableNumber, date, time, noOfGuests, accountId, name, email, phone,"");
+                    String bookingStatus = resultSet.getString("booking_status");
+                    Booking booking = new Booking(bookingId,
+                            tableNumber, date, time, noOfGuests, accountId, name, email, phone,bookingStatus);
                     bookings.add(booking);
                 }
             } catch (SQLException e) {
@@ -192,7 +200,13 @@ public class CustomerHomePageController {
             TableColumn<Booking, Integer> tableNo = (TableColumn<Booking, Integer>)
                     bookingsTable.getColumns().get(4);
             tableNo.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
-        }
+
+        TableColumn<Booking, String> bookingStatus = (TableColumn<Booking, String>)
+                bookingsTable.getColumns().get(5);
+        bookingStatus.setCellValueFactory(new PropertyValueFactory<>("bookingStatus"));
+
+
+    }
 
     /**
      * This method directs user to create booking page on click.
