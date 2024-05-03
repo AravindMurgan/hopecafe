@@ -52,7 +52,7 @@ public class PlaceOrderInCartController {
 
     /**
      * This method initialise cart page with order table.
-     * @param itemsList
+     * @param itemsList create item list
      */
 
   public void initialize(List<Item> itemsList)  {

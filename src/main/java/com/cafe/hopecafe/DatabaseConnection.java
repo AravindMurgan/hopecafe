@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 
 public class DatabaseConnection  {
-    public Connection dataseBaseLink;
+    Connection dataseBaseLink;
 
     /**
      * This method creates connection to database.

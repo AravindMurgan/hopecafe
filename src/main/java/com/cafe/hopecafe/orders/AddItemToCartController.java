@@ -42,8 +42,8 @@ public class AddItemToCartController {
 
     /**
      * This method initialises order pane and get menu from database.
-     * @param type
-     * @throws SQLException
+     * @param type pass type in
+     * @throws SQLException This throws SQLException.
      */
 
     public void initialize(String type) throws SQLException {

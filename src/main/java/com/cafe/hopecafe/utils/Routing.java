@@ -25,7 +25,7 @@ public class Routing {
 
     /**
      * This method is for navigating to home page.
-     * @param path
+     * @param path page to goto
      */
 
     public void navigateToHomePage(String path) {

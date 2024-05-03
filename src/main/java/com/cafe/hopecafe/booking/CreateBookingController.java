@@ -58,7 +58,7 @@ public class CreateBookingController {
 
     /**
      * getter for date selected by user
-     * @return
+     * @return value of date selected by user
      */
 
     public LocalDate getSelectedDate() {

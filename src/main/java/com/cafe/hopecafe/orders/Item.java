@@ -19,9 +19,21 @@ public class Item {
     private final SimpleStringProperty itemName;
     private final SimpleStringProperty itemPrice;
 
+    /**
+     * getter for checkBox
+     * @return value of checkBox
+     */
+
+
     public CheckBox getCheckBox() {
         return checkBox;
     }
+
+    /**
+     * setter for checkBox
+     * @param itemPrice pass checkBox constructor
+     */
+
 
     public void setCheckBox(CheckBox checkBox) {
         this.checkBox = checkBox;

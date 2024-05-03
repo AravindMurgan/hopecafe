@@ -45,7 +45,7 @@ public class HelloApplication extends Application {
     }
     /**
      * Method launches the programme when jvm calls main method.
-     * @param args
+     * @param args entrance of programme
      * */
     public static void main(String[] args) {
         launch();
