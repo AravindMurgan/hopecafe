@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import io.github.palexdev.materialfx.controls.MFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.cafe.hopecafe.homePages.RemoveStaffController">
+    <children>
+        <VBox layoutX="163.0" layoutY="126.0" prefHeight="277.0" prefWidth="575.0">
+            <children>
+                <TableView fx:id="tableView" prefHeight="246.0" prefWidth="575.0" VBox.vgrow="ALWAYS" />
+            </children>
+        </VBox>
+        <Label layoutX="152.0" layoutY="54.0" prefHeight="37.0" prefWidth="178.0" text="Delete Staff(s)">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+        <MFXButton buttonType="RAISED" layoutX="173.0" layoutY="452.0" onAction="#removeStaffOnAction" prefHeight="40.0" prefWidth="136.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Delete Staffs" />
+      <MFXButton buttonType="RAISED" layoutX="634.0" layoutY="32.0" onAction="#goBackOnAction" prefHeight="40.0" prefWidth="104.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Back" />
+    </children>
+</AnchorPane>
