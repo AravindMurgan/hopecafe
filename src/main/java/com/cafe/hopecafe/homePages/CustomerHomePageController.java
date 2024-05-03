@@ -211,20 +211,36 @@ public class CustomerHomePageController {
             routing.navigateToPage(FxmlPaths.CREATE_BOOKING_FXML);
         }
 
-        public void navigateToOrderMenu(){
+    /**
+     * This method is to navigate to order menu.
+     */
+
+    public void navigateToOrderMenu(){
             Routing routing = new Routing();
             routing.navigateToPage(FxmlPaths.ORDER_MENU_FXML);
         }
 
-        public void placeEatInOrderOnAction() {
+    /**
+     * This method is for user to select Eat In.
+     */
+
+    public void placeEatInOrderOnAction() {
             OrderType.getInstance().setOrderType("Eat_In");
             navigateToOrderMenu();
         }
+
+    /**
+     * This method is for user to select Takeaway.
+     */
 
     public void placeTakeawayOrderOnAction() {
         OrderType.getInstance().setOrderType("Takeaway");
         navigateToOrderMenu();
     }
+
+    /**
+     * This method is for user to select Delivery.
+     */
 
     public void requestDeliveryOnAction() {
         OrderType.getInstance().setOrderType("Delivery");

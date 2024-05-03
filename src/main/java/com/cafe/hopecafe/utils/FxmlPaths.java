@@ -51,9 +51,25 @@ public class FxmlPaths {
      */
 
     public static final String MANAGER_VIEW_FXML = "/com/cafe/hopecafe/homePages/managerView.fxml";
+
+    /**
+     * This creates WAITER_VIEW_FXML.
+     */
     public static final String WAITER_VIEW_FXML = "/com/cafe/hopecafe/homePages/waitersView.fxml";
+
+    /**
+     * This creates CHEF_VIEW.
+     */
     public static final String CHEF_VIEW = "/com/cafe/hopecafe/orders/chefView.fxml";
+
+    /**
+     * This creates ADD_STAFF_FXML.
+     */
     public static final String ADD_STAFF_FXML = "/com/cafe/hopecafe/homePages/addStaff.fxml";
+
+    /**
+     * This creates REMOVE_STAFF_FXML.
+     */
 
     public static final String REMOVE_STAFF_FXML = "/com/cafe/hopecafe/homePages/removeStaff.fxml";
 

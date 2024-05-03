@@ -68,17 +68,29 @@ public class OrderMenuController {
                 (FxmlPaths.ADD_ITEMS_TO_CART_FXML,category);
     }
 
+    /**
+     * This method directs user to main course page.
+     */
+
     public void meatMainOnAction(){
         String category ="Meat_Main";
         new Routing().routeToAddItemToCartController
                 (FxmlPaths.ADD_ITEMS_TO_CART_FXML,category);
     }
 
+    /**
+     * This method directs user to grill meat page.
+     */
+
     public void grillMeatOnAction(){
         String category ="Grill_Meat";
         new Routing().routeToAddItemToCartController
                 (FxmlPaths.ADD_ITEMS_TO_CART_FXML,category);
     }
+
+    /**
+     * This method directs user back to customer.
+     */
 
     public void goBackOnAction(){
         new Routing().navigateToPage(FxmlPaths.CUSTOMER_HOME_PAGE);

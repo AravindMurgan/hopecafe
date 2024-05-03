@@ -35,6 +35,10 @@ public class UserData {
         return instance;
     }
 
+    /**
+     * This method is for clearing of user data.
+     */
+
     public void clearUserData() {
         this.userName = null;
         this.firstName = null;

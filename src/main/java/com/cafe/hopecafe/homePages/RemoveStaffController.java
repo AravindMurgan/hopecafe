@@ -19,6 +19,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is to remove staff control pane and methods to remove staffs.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class RemoveStaffController {
 
     @FXML
@@ -28,6 +36,10 @@ public class RemoveStaffController {
     private Button removeButton;
 
     private ObservableList<User> data;
+
+    /**
+     * initializer for staff controller.
+     */
 
     public void initialize() {
         TableColumn<User, String> usernameColumn = new TableColumn<>("Username");
@@ -46,6 +58,10 @@ public class RemoveStaffController {
 
         fetchStaffData();
     }
+
+    /**
+     * This creates connection to database and fetch staff data.
+     */
 
     private void fetchStaffData() {
         DatabaseConnection connectNow = new DatabaseConnection();
@@ -70,6 +86,10 @@ public class RemoveStaffController {
         }
     }
 
+    /**
+     * This is a method create button to remove staff on click.
+     */
+
     public void removeStaffOnAction() {
         List<User> usersToRemove = new ArrayList<>();
         for (User user : data) {
@@ -89,10 +109,19 @@ public class RemoveStaffController {
 
         tableView.refresh();
     }
+
+    /**
+     * This is a method create button to return to manager page on click.
+     */
     public void goBackOnAction(){
         Routing routing = new Routing();
         routing.navigateToPage(FxmlPaths.MANAGER_VIEW_FXML);
     }
+
+    /**
+     * This is a method to remove user from database.
+     * @param user
+     */
     private void removeUserFromDatabase(User user) {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();

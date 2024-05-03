@@ -1,5 +1,6 @@
 package com.cafe.hopecafe.homePages;
 
+
 import com.cafe.hopecafe.DatabaseConnection;
 import com.cafe.hopecafe.utils.FxmlPaths;
 import com.cafe.hopecafe.utils.Routing;
@@ -12,6 +13,14 @@ import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.Statement;
+
+/**
+ * This class is to create staff control pane and methods to add staffs.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
 
 public class AddStaffController {
 
@@ -37,6 +46,10 @@ public class AddStaffController {
     @FXML
     private TextField staffTypeTextField;
 
+    /**
+     * This method is to check registering staff's password meets requirements.
+     */
+
     public void RegisterButtonOnAction(){
 
         if(setPasswordField.getText().equals(confirmPasswordField.getText())){
@@ -46,11 +59,20 @@ public class AddStaffController {
             confirmPasswordLabel.setText("Password doesnt match");
         }
     }
+
+    /**
+     * This method is to set cancel registration button.
+     * @param event left empty
+     */
     public void cancelButtonOnAction(ActionEvent event){
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
         Platform.exit();
     }
+
+    /**
+     * This method is to update new staff into database.
+     */
 
     public void registerUser(){
         DatabaseConnection connectNow = new DatabaseConnection();
@@ -88,6 +110,10 @@ public class AddStaffController {
 
 
     }
+
+    /**
+     * This method is to go back to manager page.
+     */
 
     public void goBackOnAction(){
         Routing routing = new Routing();

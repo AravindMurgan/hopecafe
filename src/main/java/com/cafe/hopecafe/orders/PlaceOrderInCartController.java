@@ -51,12 +51,14 @@ public class PlaceOrderInCartController {
 
     private List<Item> cartItemList = new ArrayList<>();
 
-
-    public void initialize(List<Item> itemsList) {
     /**
      * This method initialise cart page with order table.
      * @param itemsList create item list
      */
+
+
+    public void initialize(List<Item> itemsList) {
+
 
         TableColumn itemNameCol = new TableColumn("Item Name");
         TableColumn itemPriceCol = new TableColumn("Price");
@@ -79,6 +81,10 @@ public class PlaceOrderInCartController {
         tableView.setItems(data);
         totalPriceLabel.setText(String.valueOf(totalPrice));
     }
+
+    /**
+     * This method creates connection to database and allows customer to place order.
+     */
 
     public void placeOrderOnAction() {
         DatabaseConnection connectNow = new DatabaseConnection();

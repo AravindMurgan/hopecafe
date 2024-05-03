@@ -19,11 +19,24 @@ import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * This class is to create chef view pane.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class ChefViewController {
 
     @FXML
     private TableView<Booking> orderStatusTableView;
     ObservableList<Booking> data;
+
+    /**
+     * initializer for chef view pane
+     * @throws SQLException This throws SQLException.
+     */
 
     public void initialize() throws SQLException {
         List<Booking> bookingsData = getBookingsData();
@@ -71,6 +84,11 @@ public class ChefViewController {
         orderStatusTableView.setItems(data);
     }
 
+    /**
+     * This method is to fetch data from database and create view for chef.
+     * @return booking list
+     */
+
 
     public List<Booking> getBookingsData() {
 
@@ -108,6 +126,9 @@ public class ChefViewController {
         return bookings;
     }
 
+    /**
+     * This method is for chef to approve oder and update into database.
+     */
 
 
     public void approveOrderItemOnAction() {
@@ -144,6 +165,10 @@ public class ChefViewController {
         }
     }
 
+    /**
+     * This method is for chef to reject oder and update into database.
+     */
+
     public void rejectOrderItemOnAction() {
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
@@ -177,6 +202,10 @@ public class ChefViewController {
             orderStatusTableView.getItems().addAll(getBookingsData());
         }
     }
+
+    /**
+     * This method is for chef to logout.
+     */
 
     public void logoutOnAction(){
         Routing routing = new Routing();

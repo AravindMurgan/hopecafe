@@ -155,6 +155,11 @@ public class Routing {
         }
     }
 
+    /**
+     * This is a method for navigation in app.
+     * @param path page to go to
+     */
+
     public void navigateToPage(String path) {
         BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
         try {

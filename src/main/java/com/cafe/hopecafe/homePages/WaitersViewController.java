@@ -16,12 +16,25 @@ import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * This contains methods for waiter view page control and create.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class WaitersViewController {
 
     @FXML
     private TableView<Booking> bookingStatusTableView;
     ObservableList<Booking> data;
     List<Booking> itemsIdList = new ArrayList<>();
+
+    /**
+     * initializer for booking date
+     * @throws SQLException This throws SQLException.
+     */
 
     public void initialize() throws SQLException {
         List<Booking> bookingsData = getBookingsData();
@@ -69,6 +82,11 @@ public class WaitersViewController {
         bookingStatusTableView.setItems(data);
     }
 
+    /**
+     * This method is to create booking list for waiter.
+     * @return booking list
+     */
+
 
     public List<Booking> getBookingsData() {
 
@@ -106,9 +124,11 @@ public class WaitersViewController {
         return bookings;
     }
 
+    /**
+     * This method is to create approve button for waiter to approve booking on click.
+     */
 
-
-public void approveBookingOnAction() {
+    public void approveBookingOnAction() {
     DatabaseConnection connectNow = new DatabaseConnection();
     Connection connectDB = connectNow.getConnection();
 
@@ -141,6 +161,10 @@ public void approveBookingOnAction() {
         bookingStatusTableView.getItems().addAll(getBookingsData());
     }
 }
+
+    /**
+     * This method is to create approve button for waiter to reject booking on click.
+     */
 
 public void rejectBookingOnAction() {
     DatabaseConnection connectNow = new DatabaseConnection();
@@ -175,6 +199,10 @@ public void rejectBookingOnAction() {
         bookingStatusTableView.getItems().addAll(getBookingsData());
     }
 }
+
+    /**
+     * This method is for waiter to logout.
+     */
 
     public void logoutOnAction(){
 //        UserData.getInstance().clearUserData();
