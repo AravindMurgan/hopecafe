@@ -31,7 +31,7 @@ public class Item {
 
     /**
      * setter for checkBox
-     * @param itemPrice pass checkBox constructor
+     * @param checkBox pass checkBox constructor
      */
 
 
