@@ -28,6 +28,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;;
 
+/**
+ * This class contains methods for user to place or clear order.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 
 public class PlaceOrderInCartController {
 
@@ -42,7 +50,10 @@ public class PlaceOrderInCartController {
 
     private List<Item> cartItemList = new ArrayList<>();
 
-
+    /**
+     * This method initialise cart page with order table.
+     * @param itemsList
+     */
 
   public void initialize(List<Item> itemsList)  {
 
@@ -66,40 +77,48 @@ public class PlaceOrderInCartController {
     cartItemList.addAll(itemsList); // Merge new items with existing items
     tableView.setItems(data);
     totalPriceLabel.setText(String.valueOf(totalPrice));
-}
-public void placeOrderAction(){
-    DatabaseConnection connectNow = new DatabaseConnection();
-    Connection connectDB = connectNow.getConnection();
-    String formattedDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    Integer user_id = UserData.getInstance().getUserid();
-    String fullName = UserData.getInstance().getFirstName() + " " + UserData.getInstance().getLastName();
-    StringBuilder insertQuery = new StringBuilder("INSERT INTO orders ( customer_name, order_date, total_price, order_status, customer_id, order_type, order_item_list) VALUES ");
-
-    // Create a comma-separated string of item names
-    String orderItemList = cartItemList.stream()
-            .map(Item::getItemName)
-            .collect(Collectors.joining(", "));
-
-    insertQuery.append("(")
-            .append("'").append(fullName).append("', ")
-            .append("'").append(formattedDateTime).append("', ")
-            .append("'").append(totalPrice).append("', ") // assuming totalPrice is the total price for all items
-            .append("'").append("Pending").append("', ")
-            .append("'").append(user_id).append("', ")
-            .append("'").append("Takeaway").append("', ")
-            .append("'").append(orderItemList).append("'")
-            .append(")");
-
-    try {
-        Statement statement = connectDB.createStatement();
-        statement.executeUpdate(insertQuery.toString());
-        // Clear the cartItemList after the order has been placed
-        cartItemList.clear();
-    } catch (Exception e) {
-        e.printStackTrace();
-        e.getCause();
     }
-}
+
+    /**
+     * This method creates order and pass data into database on click.
+     */
+    public void placeOrderAction(){
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+        String formattedDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Integer user_id = UserData.getInstance().getUserid();
+        String fullName = UserData.getInstance().getFirstName() + " " + UserData.getInstance().getLastName();
+        StringBuilder insertQuery = new StringBuilder("INSERT INTO orders ( customer_name, order_date, total_price, order_status, customer_id, order_type, order_item_list) VALUES ");
+
+        // Create a comma-separated string of item names
+        String orderItemList = cartItemList.stream()
+                .map(Item::getItemName)
+                .collect(Collectors.joining(", "));
+
+        insertQuery.append("(")
+                .append("'").append(fullName).append("', ")
+                .append("'").append(formattedDateTime).append("', ")
+                .append("'").append(totalPrice).append("', ") // assuming totalPrice is the total price for all items
+                .append("'").append("Pending").append("', ")
+                .append("'").append(user_id).append("', ")
+                .append("'").append("Takeaway").append("', ")
+                .append("'").append(orderItemList).append("'")
+                .append(")");
+
+        try {
+            Statement statement = connectDB.createStatement();
+            statement.executeUpdate(insertQuery.toString());
+            // Clear the cartItemList after the order has been placed
+            cartItemList.clear();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    /**
+     * This method is for user to clear cart.
+     */
     public void clearCartOnAction(){
         data.clear();
         tableView.refresh();

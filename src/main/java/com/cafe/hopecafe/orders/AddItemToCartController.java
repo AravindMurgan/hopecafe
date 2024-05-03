@@ -24,6 +24,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+/**
+ * This class contains methods for adding items into order.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class AddItemToCartController {
 
     @FXML
@@ -31,6 +39,12 @@ public class AddItemToCartController {
     ObservableList<Item> data;
 
     List<Item> itemsList = new ArrayList<>();
+
+    /**
+     * This method initialises order pane and get menu from database.
+     * @param type
+     * @throws SQLException
+     */
 
     public void initialize(String type) throws SQLException {
 
@@ -76,6 +90,9 @@ public class AddItemToCartController {
         tableView.setItems(data);
     }
 
+    /**
+     * This method adds items into order.
+     */
     public void addToCartOnAction(){
         for (Item item : tableView.getItems()) {
             if (item.getCheckBox().isSelected()) {
@@ -92,6 +109,10 @@ public class AddItemToCartController {
                     new Routing().routeToPlaceOrderInCartController(FxmlPaths.PLACE_ORDER_IN_CART_FXML,itemsList);
                 });
     }
+
+    /**
+     * This method defines function for back bottom that allows user to return to menu page.
+     */
 
     public void goBackOnAction(){
         new Routing().routeTo(FxmlPaths.ORDER_MENU_FXML);
