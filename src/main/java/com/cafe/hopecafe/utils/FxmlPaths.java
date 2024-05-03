@@ -1,5 +1,13 @@
 package com.cafe.hopecafe.utils;
 
+/**
+ * This class creates path Strings for fx fxml file.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class FxmlPaths {
 
     public static final String PLACE_ORDER_IN_CART_FXML = "/com/cafe/hopecafe/orders/placeOrderInCart.fxml";

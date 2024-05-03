@@ -27,7 +27,7 @@ public class Booking {
     private CheckBox checkBox;
 
     /**
-     * This is constructor for booking check box parameters.
+     * This is a constructor for booking check box parameters.
      * @param bookingId Pass bookingID in.
      * @param tableNumber Pass table number in.
      * @param date Pass date in.
