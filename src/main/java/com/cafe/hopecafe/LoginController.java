@@ -1,6 +1,5 @@
 package com.cafe.hopecafe;
 
-import com.cafe.hopecafe.utils.FxmlLoaderUtil;
 import com.cafe.hopecafe.utils.FxmlPaths;
 import com.cafe.hopecafe.utils.RootBorderPaneHolder;
 import com.cafe.hopecafe.utils.UserData;
@@ -33,10 +32,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
-//    public Stage primaryStage;
-//    public void setPrimaryStage(Stage primaryStage){
-//        this.primaryStage=primaryStage;
-//    }
+
 
     @FXML
     private Button cancelButton;
@@ -48,10 +44,6 @@ public class LoginController implements Initializable {
     private TextField passwordTextField;
     @FXML
     private BorderPane rootPane;
-    @FXML
-    private Hyperlink signUpField;
-
-
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
@@ -99,8 +91,6 @@ public class LoginController implements Initializable {
      * @return This returns false statements for invalid input.
      */
     private boolean isValidUsername(String username) {
-        // Implement your username validation logic here
-        // For example, you might check if the username follows certain rules
         return !username.contains(" ");
     }
 
@@ -110,11 +100,7 @@ public class LoginController implements Initializable {
      * @return This returns false statements for invalid input.
      */
 
-//    private boolean isValidPassword(String password) {
-//        // Implement your password validation logic here
-//        // For example, you might check if the password meets certain criteria
-//        return password.length() >= 8;
-//    }
+
 
     /**
      * This method first validate if login details are valid and direct user to correspond page.     *

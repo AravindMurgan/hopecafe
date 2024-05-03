@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -33,17 +34,9 @@ public class CustomerHomePageController {
     @FXML
     private TableView bookingsTable;
     @FXML
-    private Button placeEatInOrderButton;
-    @FXML
-    private Button placeTakeawayOrderButton;
-    @FXML
-    private Button requestDeliveryButton;
-    @FXML
-    private Button createBookingButton;
-    @FXML
     private TableView upcomingOrdersListTableView;
-
-        // Other code...
+    @FXML
+    private Label welcomeLabel;
 
     /**
      * This method initialise text in booking page.
@@ -51,17 +44,19 @@ public class CustomerHomePageController {
      */
 
     public void initialize() throws SQLException {
+            String firstName = UserData.getInstance().getFirstName();
+            String lastName = UserData.getInstance().getLastName();
+
+            welcomeLabel.setText("Welcome " + firstName + " " + lastName + "!");
+
             Integer userId = UserData.getInstance().getUserid();
             List<Booking> bookings = getBookingsForUser(userId);
             List<OrderItem> orders = getOrderedOrderItemsList(userId);
 
-            // Create an ObservableList from the list of Booking objects
             ObservableList<Booking> bookingData = FXCollections.observableArrayList(bookings);
 
-            // Set the ObservableList as the items for the TableView
             bookingsTable.setItems(bookingData);
 
-            // Bind the TableView columns to the properties of the Booking class
             bindTableColumns();
 
             ObservableList<OrderItem> orderedOrderItemsList = FXCollections.observableArrayList(orders);
@@ -213,14 +208,6 @@ public class CustomerHomePageController {
      */
 
         public void createBookingButtonOnAction() {
-//            BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
-//            try {
-//                BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.CREATE_BOOKING_FXML));
-//                rootPane.getChildren().setAll(fxmlLoader);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                e.getCause();
-//            }
             Routing routing = new Routing();
             routing.navigateToPage(FxmlPaths.CREATE_BOOKING_FXML);
         }

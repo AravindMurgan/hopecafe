@@ -31,7 +31,6 @@ public class WaitersViewController {
     @FXML
     private TableView<Booking> bookingStatusTableView;
     ObservableList<Booking> data;
-    List<Booking> itemsIdList = new ArrayList<>();
 
     /**
      * initializer for booking date

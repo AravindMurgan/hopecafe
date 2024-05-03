@@ -3,7 +3,6 @@ package com.cafe.hopecafe.homePages;
 import com.cafe.hopecafe.DatabaseConnection;
 import com.cafe.hopecafe.utils.FxmlPaths;
 import com.cafe.hopecafe.utils.Routing;
-import com.cafe.hopecafe.homePages.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -31,9 +30,6 @@ public class RemoveStaffController {
 
     @FXML
     private TableView<User> tableView;
-
-    @FXML
-    private Button removeButton;
 
     private ObservableList<User> data;
 

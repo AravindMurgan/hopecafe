@@ -29,19 +29,10 @@ public class HelloApplication extends Application {
     public void start(Stage primaryStage) throws IOException, SQLException {
        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource(FxmlPaths.LOGIN_FXML));
         Parent root = fxmlLoader.load();
-//        FXMLLoader(HelloApplication.class.getResource("orders/addItemsToCart.fxml"));
-//
-//
-//        AddItemToCartController controller = fxmlLoader.getController();
-//        controller.initialize("Grill_Meat");
-
-
         Scene scene = new Scene(root, 900, 600);
         primaryStage.setTitle("Hope Cafe");
         primaryStage.setScene(scene);
         primaryStage.show();
-
-//        controller.setPrimaryStage(primaryStage);
     }
     /**
      * Method launches the programme when jvm calls main method.

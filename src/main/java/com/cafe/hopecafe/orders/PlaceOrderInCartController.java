@@ -113,7 +113,7 @@ public class PlaceOrderInCartController {
         try {
             Statement statement = connectDB.createStatement();
             statement.executeUpdate(insertQuery.toString());
-            // Clear the cartItemList after the order has been placed
+            // Clear the cartItemList
             clearCartOnAction();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Order Placed Successfully");
             alert.showAndWait()

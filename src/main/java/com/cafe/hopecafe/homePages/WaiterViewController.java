@@ -133,8 +133,6 @@ public class WaiterViewController{
 
         for (OrderItem item : orderStatusTableView.getItems()) {
             if (item.getCheckBox().isSelected()) {
-                System.out.println("order Id: " + item.getOrderId());
-
                 // Update order_status to 'pending' for the selected order
                 String updateStatusSql = "UPDATE orders SET order_status = ? WHERE order_id = ?";
                 try {
@@ -148,7 +146,7 @@ public class WaiterViewController{
             }
         }
 
-        // Show popup
+         // Alert message
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Order Status");
         alert.setHeaderText(null);
@@ -171,8 +169,6 @@ public class WaiterViewController{
 
         for (OrderItem item : orderStatusTableView.getItems()) {
             if (item.getCheckBox().isSelected()) {
-                System.out.println("order Id: " + item.getOrderId());
-
                 // Update order_status to 'rejected' for the selected order
                 String updateStatusSql = "UPDATE orders SET order_status = ? WHERE order_id = ?";
                 try {

@@ -36,8 +36,7 @@ public class Routing {
             rootPane.getChildren().setAll(fxmlLoader);
         } catch (Exception e) {
             e.printStackTrace();
-            // It's advisable to handle the exception appropriately,
-            // depending on the requirements of your application.
+
         }
     }
 
@@ -49,14 +48,11 @@ public class Routing {
     public void routeTo(String path){
         BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
         try {
-//            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(path));
             FXMLLoader fxmlLoader = new FXMLLoader(Routing.class.getResource(path));
             Parent root = fxmlLoader.load();
             rootPane.getChildren().setAll(root);
         } catch (Exception e) {
             e.printStackTrace();
-            // It's advisable to handle the exception appropriately,
-            // depending on the requirements of your application.
         }
 
     }
@@ -95,16 +91,13 @@ public class Routing {
     public void routeToAddItemToCartController(String path,String itemType){
         BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
         try {
-//            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(path));
             FXMLLoader fxmlLoader = new FXMLLoader(Routing.class.getResource(path));
             Parent root = fxmlLoader.load();
             AddItemToCartController controller = fxmlLoader.getController();
             controller.initialize(itemType);
             rootPane.getChildren().setAll(root);
         } catch (Exception e) {
-            e.printStackTrace();
-            // It's advisable to handle the exception appropriately,
-            // depending on the requirements of your application.
+            e.printStackTrace();.
         }
 
     }

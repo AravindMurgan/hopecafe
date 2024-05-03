@@ -57,7 +57,6 @@ public class Booking {
         this.checkBox = new CheckBox();
         this.checkBox.setSelected(false);
         this.checkBox.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            // You can perform any action here when checkbox state changes
             if (newValue) {
                 System.out.println("Checkbox selected for: " + this.getAccountId() + " " + this.getBookingStatus());
             } else {

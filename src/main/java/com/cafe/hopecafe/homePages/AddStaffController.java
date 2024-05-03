@@ -39,8 +39,6 @@ public class AddStaffController {
     private MFXPasswordField confirmPasswordField;
 
     @FXML
-    private Label registerMessageLabel;
-    @FXML
     private Label confirmPasswordLabel;
 
     @FXML
@@ -92,8 +90,6 @@ public class AddStaffController {
 
             Statement statement= connectDB.createStatement();
             statement.executeUpdate(insertToRegister);
-
-//            registerMessageLabel.setText("User Registered Successfully");
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Staff Registered Successfully");
             alert.showAndWait()

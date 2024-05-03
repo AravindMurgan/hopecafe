@@ -35,8 +35,6 @@ public class RegisterController {
     private TextField confirmPasswordField;
 
     @FXML
-    private Label registerMessageLabel;
-    @FXML
     private Label confirmPasswordLabel;
 
     /**
@@ -85,9 +83,6 @@ public class RegisterController {
 
             Statement statement= connectDB.createStatement();
             statement.executeUpdate(insertToRegister);
-
-            //registerMessageLabel.setText("User Registered Successfully");
-
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "User Registered Successfully");
             alert.showAndWait()
