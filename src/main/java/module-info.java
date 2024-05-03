@@ -1,3 +1,7 @@
+/**
+ * This contains module needed for this app.
+ */
+
 module com.cafe.hopecafe {
     requires javafx.controls;
     requires javafx.fxml;

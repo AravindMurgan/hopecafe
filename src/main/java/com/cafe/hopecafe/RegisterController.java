@@ -10,6 +10,14 @@ import javafx.stage.Stage;
 import java.sql.Connection;
 import java.sql.Statement;
 
+/**
+ * This contains methods for user registration.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class RegisterController {
 
     @FXML
@@ -31,6 +39,10 @@ public class RegisterController {
     @FXML
     private Label confirmPasswordLabel;
 
+    /**
+     *  This method checks if both password input are the same.
+     */
+
     public void RegisterButtonOnAction(){
 
         if(setPasswordField.getText().equals(confirmPasswordField.getText())){
@@ -41,11 +53,20 @@ public class RegisterController {
             confirmPasswordLabel.setText("Password doesnt match");
         }
     }
+
+    /**
+     * This method is for user to cancel account registration.
+     * @param event This parameter is left empty.
+     */
     public void cancelButtonOnAction(ActionEvent event){
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
         Platform.exit();
     }
+
+    /**
+     * This method takes user input from registration and store into database.
+     */
 
     public void registerUser(){
         DatabaseConnection connectNow = new DatabaseConnection();
@@ -57,8 +78,8 @@ public class RegisterController {
         String password=setPasswordField.getText();
 
         String insertFields = "INSERT INTO user_account (first_name, last_name, username, password) VALUES ('";
-        String insertValues = firstname +"','"+lastname +"','"+username +"','"+password +"')";
-        String insertToRegister=insertFields+insertValues;
+        String insertValues = firstname +"','" + lastname + "','" + username + "','"+ password + "')";
+        String insertToRegister = insertFields + insertValues;
 
         try{
 

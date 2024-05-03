@@ -29,6 +29,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;;
 
+/**
+ * This class contains methods for user to place or clear order.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 
 public class PlaceOrderInCartController {
 
@@ -45,6 +53,10 @@ public class PlaceOrderInCartController {
 
 
     public void initialize(List<Item> itemsList) {
+    /**
+     * This method initialise cart page with order table.
+     * @param itemsList create item list
+     */
 
         TableColumn itemNameCol = new TableColumn("Item Name");
         TableColumn itemPriceCol = new TableColumn("Price");
@@ -109,8 +121,10 @@ public class PlaceOrderInCartController {
         }
     }
 
-    public void clearCartOnAction() {
-        cartItemList.clear();
+    /**
+     * This method is for user to clear cart.
+     */
+    public void clearCartOnAction(){
         data.clear();
         tableView.refresh();
     }

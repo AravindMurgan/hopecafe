@@ -21,6 +21,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class creates customer home page pane and methods to control.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
 
 public class CustomerHomePageController {
     @FXML
@@ -38,7 +45,12 @@ public class CustomerHomePageController {
 
         // Other code...
 
-        public void initialize() throws SQLException {
+    /**
+     * This method initialise text in booking page.
+     * @throws SQLException This throws SQLException.
+     */
+
+    public void initialize() throws SQLException {
             Integer userId = UserData.getInstance().getUserid();
             List<Booking> bookings = getBookingsForUser(userId);
             List<OrderItem> orders = getOrderedOrderItemsList(userId);
@@ -89,6 +101,13 @@ public class CustomerHomePageController {
 
         }
 
+    /**
+     * This method get items that ordered by customer and put in order list.
+     * @param userId pass in user ID from database.
+     * @return List of things that ordered by customer.
+     * @throws SQLException This throws SQLException.
+     */
+
     private List<OrderItem> getOrderedOrderItemsList(Integer userId) throws SQLException {
         List<OrderItem> orderedOrderItems = new ArrayList<>();
         DatabaseConnection connectNow = new DatabaseConnection();
@@ -113,6 +132,13 @@ public class CustomerHomePageController {
 
         return orderedOrderItems;
     }
+
+    /**
+     * This method gets list of order booked by customer.
+     * @param userId pass in user ID
+     * @return value of customer's booking list
+     * @throws SQLException This thorws SQLException.
+     */
 
         private List<Booking> getBookingsForUser(Integer userId) throws SQLException {
             List<Booking> bookings = new ArrayList<>();
@@ -142,7 +168,11 @@ public class CustomerHomePageController {
             return bookings;
         }
 
-        private void bindTableColumns() {
+    /**
+     * This method creates booking table that shows in booking page.
+     */
+
+    private void bindTableColumns() {
             TableColumn<Booking, String> nameColumn = (TableColumn<Booking, String>)
                     bookingsTable.getColumns().get(0);
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -164,6 +194,9 @@ public class CustomerHomePageController {
             tableNo.setCellValueFactory(new PropertyValueFactory<>("tableNumber"));
         }
 
+    /**
+     * This method directs user to create booking page on click.
+     */
 
         public void createBookingButtonOnAction() {
 //            BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();

@@ -18,6 +18,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
+/**
+ * This contains methods for booking page control.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
 
 public class CreateBookingController {
 
@@ -37,6 +44,10 @@ public class CreateBookingController {
     private Label  validationLabel;
     LocalDate selectedDate;
 
+    /**
+     * initializer for booking date
+     */
+
     public void initialize() {
         dateField.setOnAction(e -> {
             selectedDate = dateField.getValue();
@@ -45,9 +56,18 @@ public class CreateBookingController {
         });
     }
 
+    /**
+     * getter for date selected by user
+     * @return value of date selected by user
+     */
+
     public LocalDate getSelectedDate() {
         return selectedDate;
     }
+
+    /**
+     * This method defines the function of create booking button.
+     */
 
 
     public void createBookingButtonOnAction(){
@@ -74,6 +94,11 @@ public class CreateBookingController {
             createBookingForUser();
         }
     }
+
+    /**
+     * This method is for booking creation, used in createBookingButtonOnAction method
+     * @see #createBookingButtonOnAction()
+     */
     public void createBookingForUser(){
         DatabaseConnection connectNow = new DatabaseConnection();
         Connection connectDB = connectNow.getConnection();
@@ -114,7 +139,9 @@ public class CreateBookingController {
         }
     }
 
-
+    /**
+     * This method direct user back to customer's home page on click.
+     */
     public void cancelButtonOnAction(){
         new Routing().navigateToHomePage(FxmlPaths.CUSTOMER_HOME_PAGE);
     }

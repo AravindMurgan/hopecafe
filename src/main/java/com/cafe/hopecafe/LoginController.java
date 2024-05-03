@@ -23,6 +23,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * This contains methods for homePage function control.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class LoginController implements Initializable {
 
 //    public Stage primaryStage;
@@ -43,16 +51,30 @@ public class LoginController implements Initializable {
     @FXML
     private Hyperlink signUpField;
 
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle){
 
     }
+
+    /**
+     * Defines function for cancel button.
+     * @param event This parameter is left empty.
+     */
 
     public void cancelButtonOnAction(ActionEvent event){
         Stage stage = (Stage) cancelButton.getScene().getWindow();
 
         stage.close();
     }
+
+    /**
+     * Defines function for login button.
+     * @param event This parameter is left empty.
+     * @throws SQLException This throws SQLException.
+     * @throws ClassNotFoundException This throws ClassNotFoundException.
+     */
 
     public void loginButtonOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         String username = usernameTextField.getText();
@@ -73,12 +95,22 @@ public class LoginController implements Initializable {
 
     }
 
-
+    /**
+     * This checks if username input is valid
+     * @param username This takes username parameter from input.
+     * @return This returns false statements for invalid input.
+     */
     private boolean isValidUsername(String username) {
         // Implement your username validation logic here
         // For example, you might check if the username follows certain rules
         return !username.contains(" ");
     }
+
+    /**
+     * This checks if password input is valid
+     * @param password This takes password parameter from input.
+     * @return This returns false statements for invalid input.
+     */
 
     private boolean isValidPassword(String password) {
         // Implement your password validation logic here
@@ -86,55 +118,65 @@ public class LoginController implements Initializable {
         return password.length() >= 8;
     }
 
-  public void validateLogin() throws SQLException, ClassNotFoundException {
-    DatabaseConnection connectNow= new DatabaseConnection();
-    Connection connectDB = connectNow.getConnection();
-    String username= usernameTextField.getText();
-    String password= passwordTextField.getText();
+    /**
+     * This method first validate if login details are valid and direct user to correspond page.     *
+     * @throws SQLException This throws SQLException.
+     * @throws ClassNotFoundException This throws ClassNotFoundException.
+     */
 
-    String verifyLogin = "SELECT * FROM user_account WHERE username='"+
-            username + "' AND password='"+password+"'";
+      public void validateLogin() throws SQLException, ClassNotFoundException {
+        DatabaseConnection connectNow= new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+        String username= usernameTextField.getText();
+        String password= passwordTextField.getText();
 
-    try {
-        Statement statement= connectDB.createStatement();
-        ResultSet queryResult = statement.executeQuery(verifyLogin);
+        String verifyLogin = "SELECT * FROM user_account WHERE username='"+
+                username + "' AND password='"+password+"'";
 
-        if(queryResult.next()){
-            int userId = queryResult.getInt("account_id");
-            String firsName = queryResult.getString("first_name");
-            String lastName = queryResult.getString("last_name");
-            String userType = queryResult.getString("user_type"); // Assuming you have a user_type column in your user_account table
+        try {
+            Statement statement= connectDB.createStatement();
+            ResultSet queryResult = statement.executeQuery(verifyLogin);
 
-            UserData.getInstance().setUserid(userId);
-            UserData.getInstance().setFirstName(firsName);
-            UserData.getInstance().setLastName(lastName);
-            RootBorderPaneHolder.getInstance().setRootPane(rootPane);
+            if(queryResult.next()){
+                int userId = queryResult.getInt("account_id");
+                String firsName = queryResult.getString("first_name");
+                String lastName = queryResult.getString("last_name");
+                String userType = queryResult.getString("user_type"); // Assuming you have a user_type column in your user_account table
 
-            String fxmlPath;
-            if ("manager".equalsIgnoreCase(userType)) {
-                fxmlPath = FxmlPaths.MANAGER_VIEW_FXML;
-            } else if ("waiter".equalsIgnoreCase(userType)) {
-                fxmlPath = FxmlPaths.WAITER_VIEW_FXML;
-            } else {
-                fxmlPath = FxmlPaths.CUSTOMER_HOME_PAGE;
+                UserData.getInstance().setUserid(userId);
+                UserData.getInstance().setFirstName(firsName);
+                UserData.getInstance().setLastName(lastName);
+                RootBorderPaneHolder.getInstance().setRootPane(rootPane);
+
+                String fxmlPath;
+                if ("manager".equalsIgnoreCase(userType)) {
+                    fxmlPath = FxmlPaths.MANAGER_VIEW_FXML;
+                } else if ("waiter".equalsIgnoreCase(userType)) {
+                    fxmlPath = FxmlPaths.WAITER_VIEW_FXML;
+                } else {
+                    fxmlPath = FxmlPaths.CUSTOMER_HOME_PAGE;
+                }
+
+                try {
+                    AnchorPane fxmlLoader = FXMLLoader.load(getClass().getResource(fxmlPath));
+                    rootPane.getChildren().setAll(fxmlLoader);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    e.getCause();
+                }
+            }else{
+                loginMessageLabel.setText("Invalid user login, Please try again");
             }
 
-            try {
-                AnchorPane fxmlLoader = FXMLLoader.load(getClass().getResource(fxmlPath));
-                rootPane.getChildren().setAll(fxmlLoader);
-            }catch (Exception e){
-                e.printStackTrace();
-                e.getCause();
-            }
-        }else{
-            loginMessageLabel.setText("Invalid user login, Please try again");
+        }catch (Exception e){
+            e.printStackTrace();
+            e.getCause();
         }
-
-    }catch (Exception e){
-        e.printStackTrace();
-        e.getCause();
     }
-}
+
+    /**
+     *  This method direct user to signup page on click.
+     */
     public void signUpOnAction(){
         RootBorderPaneHolder.getInstance().setRootPane(rootPane);
         try {

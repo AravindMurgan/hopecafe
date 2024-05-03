@@ -14,7 +14,20 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * This class is for navigation functions.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class Routing {
+
+    /**
+     * This method is for navigating to home page.
+     * @param path page to goto
+     */
 
     public void navigateToHomePage(String path) {
         BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
@@ -27,6 +40,12 @@ public class Routing {
             // depending on the requirements of your application.
         }
     }
+
+    /**
+     * This method is for navigating to a certain page.
+     * @param path page to goto
+     */
+
     public void routeTo(String path){
         BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
         try {
@@ -41,6 +60,11 @@ public class Routing {
         }
 
     }
+
+    /**
+     * This method is for navigating to a new page.
+     * @param path page to goto
+     */
 
     public void routeToNewWindow(String path) {
 
@@ -61,6 +85,12 @@ public class Routing {
 
     }
 
+    /**
+     * This method is for navigating to add item to cart page.
+     * @param path page to goto
+     * @param itemType Which type of item in menu you want to go.
+     */
+
 
     public void routeToAddItemToCartController(String path,String itemType){
         BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
@@ -79,6 +109,12 @@ public class Routing {
 
     }
 
+    /**
+     * This method is for navigating to place order page.
+     * @param path page to goto
+     * @param list Show order list.
+     */
+
     public void routeToPlaceOrderInCartController(String path, List<Item> list){
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Routing.class.getResource(path));
@@ -96,6 +132,10 @@ public class Routing {
         }
 
     }
+
+    /**
+     * This method is for navigating to login page.
+     */
 
 
     public void navigateToLoginPage() {
