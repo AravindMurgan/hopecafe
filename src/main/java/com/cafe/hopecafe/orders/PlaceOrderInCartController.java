@@ -80,7 +80,7 @@ public class PlaceOrderInCartController {
         }
         cartItemList.addAll(itemsList); // Merge new items with existing items
         tableView.setItems(data);
-        totalPriceLabel.setText(String.valueOf(totalPrice));
+        totalPriceLabel.setText(String.valueOf(totalPrice)+" "+"(£)");
     }
 
     /**
@@ -132,6 +132,7 @@ public class PlaceOrderInCartController {
      * This method is for user to clear cart.
      */
     public void clearCartOnAction(){
+        totalPriceLabel.setText("(£)");
         data.clear();
         tableView.refresh();
     }

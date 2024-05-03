@@ -25,6 +25,7 @@
       <MFXDatePicker fx:id="dateField" floatingText="Select Date" layoutX="340.0" layoutY="67.0" prefHeight="27.0" prefWidth="220.0" promptText="Select Date" />
       <MFXTextField fx:id="phoneField" floatMode="BORDER" floatingText="Phone" layoutX="340.0" layoutY="332.0" prefHeight="27.0" prefWidth="220.0" />
       <MFXTextField fx:id="nameField" floatMode="BORDER" floatingText="Name" layoutX="341.0" layoutY="224.0" prefHeight="27.0" prefWidth="220.0" />
+      <MFXButton buttonType="RAISED" layoutX="699.0" layoutY="21.0" onAction="#goBackOnAction" prefHeight="38.0" prefWidth="76.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Back" />
 
         </children>
 

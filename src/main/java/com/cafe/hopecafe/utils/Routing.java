@@ -31,7 +31,7 @@ public class Routing {
     public void navigateToHomePage(String path) {
         BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
         try {
-            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(path));
+            AnchorPane fxmlLoader = FXMLLoader.load(getClass().getResource(path));
             rootPane.getChildren().setAll(fxmlLoader);
         } catch (Exception e) {
             e.printStackTrace();

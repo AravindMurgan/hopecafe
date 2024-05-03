@@ -2,6 +2,7 @@ package com.cafe.hopecafe.homePages;
 
 import com.cafe.hopecafe.DatabaseConnection;
 import com.cafe.hopecafe.orders.OrderItem;
+import com.cafe.hopecafe.utils.Routing;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -193,6 +194,10 @@ public class WaiterViewController{
             orderStatusTableView.getItems().clear();
             orderStatusTableView.getItems().addAll(getOrdersData());
         }
+    }
+
+    public void logoutOnAction(){
+        new Routing().navigateToLoginPage();
     }
 
 }

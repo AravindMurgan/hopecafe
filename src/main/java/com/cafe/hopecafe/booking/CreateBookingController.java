@@ -147,4 +147,8 @@ public class CreateBookingController {
         new Routing().navigateToHomePage(FxmlPaths.CUSTOMER_HOME_PAGE);
     }
 
+    public void goBackOnAction(){
+        new Routing().navigateToHomePage(FxmlPaths.CUSTOMER_HOME_PAGE);
+    }
+
 }

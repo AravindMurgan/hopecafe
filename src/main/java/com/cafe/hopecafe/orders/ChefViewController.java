@@ -142,10 +142,9 @@ public class ChefViewController {
                 // Update booking_status to 'pending' for the selected booking
                 String updateStatusSql = "UPDATE bookings SET booking_status = ? WHERE booking_id = ?";
                 try {
-                    PreparedStatement preparedStatement = connectDB.prepareStatement(updateStatusSql);
-                    preparedStatement.setString(1, "APPROVED");
-                    preparedStatement.setInt(2, item.getBookingId());
-                    preparedStatement.executeUpdate();
+                    connectDB.prepareStatement(updateStatusSql).setString(1, "APPROVED");
+                    connectDB.prepareStatement(updateStatusSql).setInt(2, item.getBookingId());
+                    connectDB.prepareStatement(updateStatusSql).executeUpdate();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

@@ -26,6 +26,10 @@ public class OrderItem {
     private String orderType;
     private String formattedOrderDate;
 
+
+
+    private String dateAndTime;
+
     private CheckBox checkBox;
 
     /**
@@ -39,9 +43,10 @@ public class OrderItem {
      */
 
     public OrderItem(String orderId, String customerName,
-                     String orderItemList, String totalPrice, String orderStatus, String orderType) {
+                     String orderItemList,String dateAndTime ,String totalPrice, String orderStatus, String orderType) {
         this.orderId = orderId;
         this.customerName = customerName;
+        this.dateAndTime= dateAndTime;
         this.orderItemList = orderItemList;
         this.totalPrice = totalPrice;
         this.orderStatus = orderStatus;
@@ -81,6 +86,15 @@ public class OrderItem {
             }
         });
     }
+
+    public String getDateAndTime() {
+        return dateAndTime;
+    }
+
+    public void setDateAndTime(String dateAndTime) {
+        this.dateAndTime = dateAndTime;
+    }
+
 
     /**
      * getter for FormattedOrderDate
@@ -267,6 +281,7 @@ public class OrderItem {
      * setter for orderType
      * @param orderType pass orderType from constructor
      */
+
 
 
     public void setOrderType(String orderType) {

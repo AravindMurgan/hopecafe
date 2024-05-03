@@ -37,13 +37,23 @@ public class RegisterController {
     @FXML
     private Label confirmPasswordLabel;
 
+    @FXML
+    private Label registerMessageLabel;
+
     /**
      *  This method checks if both password input are the same.
      */
 
     public void RegisterButtonOnAction(){
+        String firstname = firstNameTextField.getText();
+        String lastname = lastNameTextField.getText();
+        String username = usernameTextField.getText();
+        String password = setPasswordField.getText();
 
-        if(setPasswordField.getText().equals(confirmPasswordField.getText())){
+        if (firstname.isEmpty() || lastname.isEmpty() || username.isEmpty() || password.isEmpty()) {
+            registerMessageLabel.setText("All fields are required");
+            return;
+        }else if(setPasswordField.getText().equals(confirmPasswordField.getText())){
             //confirmPasswordLabel.setText("you are set");
             registerUser();
             confirmPasswordLabel.setText("");
@@ -98,6 +108,10 @@ public class RegisterController {
         }
 
 
+    }
+
+    public void goBackOnAction(){
+        new Routing().navigateToLoginPage();
     }
 
 

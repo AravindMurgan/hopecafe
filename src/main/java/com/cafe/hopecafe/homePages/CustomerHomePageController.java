@@ -19,6 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,7 +89,7 @@ public class CustomerHomePageController {
                     new PropertyValueFactory<OrderItem,String>("orderItemList")
             );
             dateAndTime.setCellValueFactory(
-                    new PropertyValueFactory<OrderItem,String>("itemPrice")
+                    new PropertyValueFactory<OrderItem,String>("dateAndTime")
             );
             orderStatus.setCellValueFactory(
                     new PropertyValueFactory<OrderItem,String>("orderStatus")
@@ -102,12 +104,15 @@ public class CustomerHomePageController {
 
         }
 
+
     /**
      * This method get items that ordered by customer and put in order list.
      * @param userId pass in user ID from database.
      * @return List of things that ordered by customer.
      * @throws SQLException This throws SQLException.
      */
+
+
 
     private List<OrderItem> getOrderedOrderItemsList(Integer userId) throws SQLException {
         List<OrderItem> orderedOrderItems = new ArrayList<>();
@@ -121,10 +126,16 @@ public class CustomerHomePageController {
                 String orderId = String.valueOf(resultSet.getInt("order_id"));
                 String customerName = resultSet.getString("customer_name");
                 String orderItemList = resultSet.getString("order_item_list");
+
+                Timestamp timestamp = resultSet.getTimestamp("order_date");
+                LocalDateTime dateAndTime = timestamp != null ? (timestamp.toLocalDateTime())  : null;
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+                String formattedDateAndTime = dateAndTime != null ? dateAndTime.format(formatter) : null;
+
                 String itemPrice = resultSet.getString("total_price");
                 String orderStatus = resultSet.getString("order_status");
                 String orderType = resultSet.getString("order_type");
-                OrderItem item = new OrderItem(orderId,customerName, orderItemList, itemPrice, orderStatus, orderType);
+                OrderItem item = new OrderItem(orderId,customerName, orderItemList,formattedDateAndTime, itemPrice, orderStatus, orderType);
                 orderedOrderItems.add(item);
             }
         } catch (SQLException e) {
@@ -246,6 +257,11 @@ public class CustomerHomePageController {
     public void requestDeliveryOnAction() {
         OrderType.getInstance().setOrderType("Delivery");
         navigateToOrderMenu();
+    }
+
+    public void logoutOnAction() {
+        Routing routing = new Routing();
+        routing.navigateToLoginPage();
     }
 
 }

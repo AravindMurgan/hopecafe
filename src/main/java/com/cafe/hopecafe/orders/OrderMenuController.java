@@ -43,7 +43,7 @@ public class OrderMenuController {
      */
 
     public void sidesOnAction(){
-        String category ="Sides";
+        String category ="Side";
         new Routing().routeToAddItemToCartController
                 (FxmlPaths.ADD_ITEMS_TO_CART_FXML,category);
     }

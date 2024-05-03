@@ -15,6 +15,7 @@
       <VBox layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="802.0" spacing="10.0">
          <children>
             <Label fx:id="welcomeLabel" prefHeight="17.0" prefWidth="243.0" text="Welcome, [Customer Name]" />
+            <MFXButton buttonType="RAISED" onAction="#logoutOnAction" prefHeight="27.0" prefWidth="81.0" styleClass="outline-button" stylesheets="@../css/Button.css" text="Logout" />
             <Label text="Your Upcoming Bookings">
                <font>
                   <Font name="System Bold" size="14.0" />
