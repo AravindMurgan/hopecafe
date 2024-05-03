@@ -82,6 +82,7 @@ public class AddItemToCartController {
                 System.out.println("Person: " + item.getItemName() + " " + item.getItemPrice());
                 // Add item to cart (you can implement this logic)
                 itemsList.add(item);
+                item.getCheckBox().setSelected(false);
             }
         }
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION
@@ -90,6 +91,7 @@ public class AddItemToCartController {
                 .filter(response -> response == ButtonType.OK)
                 .ifPresent(response -> {
                     new Routing().routeToPlaceOrderInCartController(FxmlPaths.PLACE_ORDER_IN_CART_FXML,itemsList);
+                    tableView.refresh();
                 });
     }
 

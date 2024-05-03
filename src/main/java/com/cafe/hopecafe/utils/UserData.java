@@ -20,6 +20,12 @@ public class UserData {
         return instance;
     }
 
+    public void clearUserData() {
+        this.userName = null;
+        this.firstName = null;
+        this.lastName = null;
+        this.userid = null;
+    }
     public String getUserName() {
         return userName;
     }

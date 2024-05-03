@@ -5,6 +5,7 @@ import com.cafe.hopecafe.booking.Booking;
 import com.cafe.hopecafe.orders.OrderItem;
 import com.cafe.hopecafe.utils.FxmlPaths;
 import com.cafe.hopecafe.utils.RootBorderPaneHolder;
+import com.cafe.hopecafe.utils.Routing;
 import com.cafe.hopecafe.utils.UserData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,10 +17,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class CustomerHomePageController {
     @FXML
@@ -165,26 +166,37 @@ public class CustomerHomePageController {
 
 
         public void createBookingButtonOnAction() {
-            BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
-            try {
-                BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.CREATE_BOOKING_FXML));
-                rootPane.getChildren().setAll(fxmlLoader);
-            } catch (Exception e) {
-                e.printStackTrace();
-                e.getCause();
-            }
+//            BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
+//            try {
+//                BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.CREATE_BOOKING_FXML));
+//                rootPane.getChildren().setAll(fxmlLoader);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                e.getCause();
+//            }
+            Routing routing = new Routing();
+            routing.navigateToPage(FxmlPaths.CREATE_BOOKING_FXML);
+        }
+
+        public void navigateToOrderMenu(){
+            Routing routing = new Routing();
+            routing.navigateToPage(FxmlPaths.ORDER_MENU_FXML);
         }
 
         public void placeEatInOrderOnAction() {
-            BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
-            try {
-                AnchorPane fxmlLoader = FXMLLoader.load(getClass().getResource(FxmlPaths.ORDER_MENU_FXML));
-                rootPane.getChildren().setAll(fxmlLoader);
-            } catch (Exception e) {
-                e.printStackTrace();
-                e.getCause();
-            }
+            OrderType.getInstance().setOrderType("Eat_In");
+            navigateToOrderMenu();
         }
+
+    public void placeTakeawayOrderOnAction() {
+        OrderType.getInstance().setOrderType("Takeaway");
+        navigateToOrderMenu();
+    }
+
+    public void requestDeliveryOnAction() {
+        OrderType.getInstance().setOrderType("Delivery");
+        navigateToOrderMenu();
+    }
 
 }
 

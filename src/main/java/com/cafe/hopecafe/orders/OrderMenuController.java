@@ -42,6 +42,22 @@ public class OrderMenuController {
                 (FxmlPaths.ADD_ITEMS_TO_CART_FXML,category);
     }
 
+    public void meatMainOnAction(){
+        String category ="Meat_Main";
+        new Routing().routeToAddItemToCartController
+                (FxmlPaths.ADD_ITEMS_TO_CART_FXML,category);
+    }
+
+    public void grillMeatOnAction(){
+        String category ="Grill_Meat";
+        new Routing().routeToAddItemToCartController
+                (FxmlPaths.ADD_ITEMS_TO_CART_FXML,category);
+    }
+
+    public void goBackOnAction(){
+        new Routing().navigateToPage(FxmlPaths.CUSTOMER_HOME_PAGE);
+    }
+
 
 
 

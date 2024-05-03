@@ -14,6 +14,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -38,69 +39,78 @@ public class PlaceOrderInCartController {
 
     @FXML
     private Label totalPriceLabel;
-    private Integer totalPrice=0;
+    private Integer totalPrice = 0;
 
     private List<Item> cartItemList = new ArrayList<>();
 
 
+    public void initialize(List<Item> itemsList) {
 
-  public void initialize(List<Item> itemsList)  {
+        TableColumn itemNameCol = new TableColumn("Item Name");
+        TableColumn itemPriceCol = new TableColumn("Price");
 
-    TableColumn itemNameCol = new TableColumn("Item Name");
-    TableColumn itemPriceCol = new TableColumn("Price");
+        tableView.getColumns().addAll(itemNameCol, itemPriceCol);
+        data = FXCollections.observableArrayList(itemsList);
+        itemNameCol.setCellValueFactory(
+                new PropertyValueFactory<Item, String>("itemName")
+        );
+        itemPriceCol.setCellValueFactory(
+                new PropertyValueFactory<Item, String>("itemPrice")
+        );
 
-    tableView.getColumns().addAll(itemNameCol, itemPriceCol );
-    data = FXCollections.observableArrayList(itemsList);
-    itemNameCol.setCellValueFactory(
-            new PropertyValueFactory<Item,String>("itemName")
-    );
-    itemPriceCol.setCellValueFactory(
-            new PropertyValueFactory<Item,String>("itemPrice")
-    );
-
-    for (Item item : itemsList) {
-     String priceString = item.getItemPrice();
-     int price = Integer.parseInt(priceString);
-        totalPrice += price;
+        for (Item item : itemsList) {
+            String priceString = item.getItemPrice();
+            int price = Integer.parseInt(priceString);
+            totalPrice += price;
+        }
+        cartItemList.addAll(itemsList); // Merge new items with existing items
+        tableView.setItems(data);
+        totalPriceLabel.setText(String.valueOf(totalPrice));
     }
-    cartItemList.addAll(itemsList); // Merge new items with existing items
-    tableView.setItems(data);
-    totalPriceLabel.setText(String.valueOf(totalPrice));
-}
-public void placeOrderAction(){
-    DatabaseConnection connectNow = new DatabaseConnection();
-    Connection connectDB = connectNow.getConnection();
-    String formattedDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    Integer user_id = UserData.getInstance().getUserid();
-    String fullName = UserData.getInstance().getFirstName() + " " + UserData.getInstance().getLastName();
-    StringBuilder insertQuery = new StringBuilder("INSERT INTO orders ( customer_name, order_date, total_price, order_status, customer_id, order_type, order_item_list) VALUES ");
 
-    // Create a comma-separated string of item names
-    String orderItemList = cartItemList.stream()
-            .map(Item::getItemName)
-            .collect(Collectors.joining(", "));
+    public void placeOrderOnAction() {
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
+        String formattedDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        Integer user_id = UserData.getInstance().getUserid();
+        String fullName = UserData.getInstance().getFirstName() + " " + UserData.getInstance().getLastName();
+        StringBuilder insertQuery = new StringBuilder("INSERT INTO orders ( customer_name, order_date, total_price, order_status, customer_id, order_type, order_item_list) VALUES ");
 
-    insertQuery.append("(")
-            .append("'").append(fullName).append("', ")
-            .append("'").append(formattedDateTime).append("', ")
-            .append("'").append(totalPrice).append("', ") // assuming totalPrice is the total price for all items
-            .append("'").append("Pending").append("', ")
-            .append("'").append(user_id).append("', ")
-            .append("'").append("Takeaway").append("', ")
-            .append("'").append(orderItemList).append("'")
-            .append(")");
+        // Create a comma-separated string of item names
+        String orderItemList = cartItemList.stream()
+                .map(Item::getItemName)
+                .collect(Collectors.joining(", "));
 
-    try {
-        Statement statement = connectDB.createStatement();
-        statement.executeUpdate(insertQuery.toString());
-        // Clear the cartItemList after the order has been placed
+        insertQuery.append("(")
+                .append("'").append(fullName).append("', ")
+                .append("'").append(formattedDateTime).append("', ")
+                .append("'").append(totalPrice).append("', ") // assuming totalPrice is the total price for all items
+                .append("'").append("Pending").append("', ")
+                .append("'").append(user_id).append("', ")
+                .append("'").append("Takeaway").append("', ")
+                .append("'").append(orderItemList).append("'")
+                .append(")");
+
+        try {
+            Statement statement = connectDB.createStatement();
+            statement.executeUpdate(insertQuery.toString());
+            // Clear the cartItemList after the order has been placed
+            clearCartOnAction();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Order Placed Successfully");
+            alert.showAndWait()
+                    .filter(response -> response == ButtonType.OK)
+                    .ifPresent(response -> {
+                        Stage stage = (Stage) tableView.getScene().getWindow();
+                        stage.close();
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    public void clearCartOnAction() {
         cartItemList.clear();
-    } catch (Exception e) {
-        e.printStackTrace();
-        e.getCause();
-    }
-}
-    public void clearCartOnAction(){
         data.clear();
         tableView.refresh();
     }

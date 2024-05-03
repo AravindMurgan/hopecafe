@@ -7,6 +7,7 @@ import com.cafe.hopecafe.orders.PlaceOrderInCartController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -101,6 +102,23 @@ public class Routing {
         BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
         try {
             BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource("/com/cafe/hopecafe/login.fxml"));
+            if(rootPane != null) {
+                rootPane.getChildren().setAll(fxmlLoader);
+            } else {
+                Stage stage = new Stage();
+                Scene scene = new Scene(fxmlLoader);
+                stage.setScene(scene);
+                stage.show();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void navigateToPage(String path) {
+        BorderPane rootPane = RootBorderPaneHolder.getInstance().getRootPane();
+        try {
+            BorderPane fxmlLoader = FXMLLoader.load(getClass().getResource(path));
             if(rootPane != null) {
                 rootPane.getChildren().setAll(fxmlLoader);
             } else {
