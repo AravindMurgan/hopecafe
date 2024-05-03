@@ -19,12 +19,26 @@ import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+
+/**
+ * This class creates manager page pane and methods to control.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class ManagerViewController {
 
     @FXML
     private TableView<Booking> bookingStatusTableView;
     ObservableList<Booking> data;
     List<Booking> itemsIdList = new ArrayList<>();
+
+    /**
+     * This method initialise text in manager page.
+     * @throws SQLException This throws SQLException.
+     */
 
     public void initialize() throws SQLException {
         List<Booking> bookingsData = getBookingsData();
@@ -72,7 +86,10 @@ public class ManagerViewController {
         bookingStatusTableView.setItems(data);
     }
 
-
+    /**
+     * This method gets booking list from database and input in manager pane.
+     * @return List of things that ordered by customer.
+     */
     public List<Booking> getBookingsData() {
 
         List<Booking> bookings = new ArrayList<>();
@@ -109,76 +126,85 @@ public class ManagerViewController {
         return bookings;
     }
 
+    /**
+     * This method allows manager to approve booking.
+     */
 
+    public void approveBookingOnAction() {
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
 
-public void approveBookingOnAction() {
-    DatabaseConnection connectNow = new DatabaseConnection();
-    Connection connectDB = connectNow.getConnection();
+        for (Booking item : bookingStatusTableView.getItems()) {
+            if (item.getCheckBox().isSelected()) {
+                System.out.println("booking Id: " + item.getBookingId());
 
-    for (Booking item : bookingStatusTableView.getItems()) {
-        if (item.getCheckBox().isSelected()) {
-            System.out.println("booking Id: " + item.getBookingId());
-
-            // Update booking_status to 'pending' for the selected booking
-            String updateStatusSql = "UPDATE bookings SET booking_status = ? WHERE booking_id = ?";
-            try {
-                PreparedStatement preparedStatement = connectDB.prepareStatement(updateStatusSql);
-                preparedStatement.setString(1, "APPROVED");
-                preparedStatement.setInt(2, item.getBookingId());
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                // Update booking_status to 'pending' for the selected booking
+                String updateStatusSql = "UPDATE bookings SET booking_status = ? WHERE booking_id = ?";
+                try {
+                    PreparedStatement preparedStatement = connectDB.prepareStatement(updateStatusSql);
+                    preparedStatement.setString(1, "APPROVED");
+                    preparedStatement.setInt(2, item.getBookingId());
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
+        }
+
+        // Show popup
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Booking Status");
+        alert.setHeaderText(null);
+        alert.setContentText("Booking Approved Successfully");
+
+        // Refresh the TableView
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            bookingStatusTableView.getItems().clear();
+            bookingStatusTableView.getItems().addAll(getBookingsData());
         }
     }
 
-    // Show popup
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("Booking Status");
-    alert.setHeaderText(null);
-    alert.setContentText("Booking Approved Successfully");
+    /**
+     * This method allows manager to reject booking.
+     */
 
-    // Refresh the TableView
-    if (alert.showAndWait().get() == ButtonType.OK) {
-        bookingStatusTableView.getItems().clear();
-        bookingStatusTableView.getItems().addAll(getBookingsData());
-    }
-}
+    public void rejectBookingOnAction() {
+        DatabaseConnection connectNow = new DatabaseConnection();
+        Connection connectDB = connectNow.getConnection();
 
-public void rejectBookingOnAction() {
-    DatabaseConnection connectNow = new DatabaseConnection();
-    Connection connectDB = connectNow.getConnection();
+        for (Booking item : bookingStatusTableView.getItems()) {
+            if (item.getCheckBox().isSelected()) {
+                System.out.println("booking Id: " + item.getBookingId());
 
-    for (Booking item : bookingStatusTableView.getItems()) {
-        if (item.getCheckBox().isSelected()) {
-            System.out.println("booking Id: " + item.getBookingId());
-
-            // Update booking_status to 'rejected' for the selected booking
-            String updateStatusSql = "UPDATE bookings SET booking_status = ? WHERE booking_id = ?";
-            try {
-                PreparedStatement preparedStatement = connectDB.prepareStatement(updateStatusSql);
-                preparedStatement.setString(1, "REJECTED");
-                preparedStatement.setInt(2, item.getBookingId());
-                preparedStatement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
+                // Update booking_status to 'rejected' for the selected booking
+                String updateStatusSql = "UPDATE bookings SET booking_status = ? WHERE booking_id = ?";
+                try {
+                    PreparedStatement preparedStatement = connectDB.prepareStatement(updateStatusSql);
+                    preparedStatement.setString(1, "REJECTED");
+                    preparedStatement.setInt(2, item.getBookingId());
+                    preparedStatement.executeUpdate();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
+        }
+
+        // Show popup
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Booking Status");
+        alert.setHeaderText(null);
+        alert.setContentText("Booking Rejected Successfully");
+
+        // Refresh the TableViewd
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            bookingStatusTableView.getItems().clear();
+            bookingStatusTableView.getItems().addAll(getBookingsData());
         }
     }
 
-    // Show popup
-    Alert alert = new Alert(AlertType.INFORMATION);
-    alert.setTitle("Booking Status");
-    alert.setHeaderText(null);
-    alert.setContentText("Booking Rejected Successfully");
-
-    // Refresh the TableViewd
-    if (alert.showAndWait().get() == ButtonType.OK) {
-        bookingStatusTableView.getItems().clear();
-        bookingStatusTableView.getItems().addAll(getBookingsData());
-    }
-}
-
+    /**
+     * in progress
+     */
     public void logoutOnAction(){
 //        UserData.getInstance().clearUserData();
 //        Routing routing = new Routing();

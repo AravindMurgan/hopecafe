@@ -17,11 +17,24 @@ import java.util.List;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
+/**
+ * This class creates waiter page pane and methods to control.
+ *
+ * @author Aravind, Guanlin
+ * @version 15/04/2024 22:14
+ * @since JDK 17
+ */
+
 public class WaiterViewController{
 
     @FXML
     private TableView<OrderItem> orderStatusTableView;
     ObservableList<OrderItem> data;
+
+    /**
+     * This method initialise text in waiter page.
+     * @throws SQLException This throws SQLException.
+     */
 
     public void initialize() throws SQLException {
         List<OrderItem> ordersData = getOrdersData();
@@ -70,6 +83,12 @@ public class WaiterViewController{
         orderStatusTableView.setItems(data);
     }
 
+    /**
+     * This method gets booking list from database and input in waiter pane.
+     * And allows waiter to order for customer.
+     * @return List of things that ordered by customer.
+     */
+
 
     public List<OrderItem> getOrdersData() {
 
@@ -104,7 +123,9 @@ public class WaiterViewController{
         return orders;
     }
 
-
+    /**
+     * This method defined function of approve button, that allows waiter to approve booking on click.
+     */
 
     public void approveOrderItemOnAction() {
         DatabaseConnection connectNow = new DatabaseConnection();
@@ -139,6 +160,10 @@ public class WaiterViewController{
             orderStatusTableView.getItems().addAll(getOrdersData());
         }
     }
+
+    /**
+     * This method defined function of reject button, that allows waiter to reject booking on click.
+     */
 
     public void rejectOrderItemOnAction() {
         DatabaseConnection connectNow = new DatabaseConnection();
